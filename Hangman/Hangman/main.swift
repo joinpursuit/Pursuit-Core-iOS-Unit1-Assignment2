@@ -8,5 +8,16 @@
 
 import Foundation
 
-print("Hello, World!")
+var numberOfWrongGuesses = 0
+
+
+var allGuesses = Character[]()
+
+
+var answer = ""
+
+
+var guess: Character = " "
+
+var inProgress = true
 
