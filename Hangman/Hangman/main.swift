@@ -10,3 +10,10 @@ import Foundation
 
 print("Hello, World!")
 
+var test = "This is my first commit test"
+print(test)
+
+var test1 = "why can I push changes but not see them in github?"
+
+print(test1)
+
