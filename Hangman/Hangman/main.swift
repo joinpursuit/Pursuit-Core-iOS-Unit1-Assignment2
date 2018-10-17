@@ -62,97 +62,103 @@ repeat {
         }
         while loopGuess {
             print(solve)
+            print("Letters guessed so far: \(strikeString)")
             print(gallow)
             print("guess a letter")
             //sometimes valid letters are counted as not valid
             if let guess = readLine()?.lowercased() {
                 print("you guessed \(guess).")
-                if guess >= "a" && guess <= "z" && !strikeString.contains(guess) && guess.count == 1 {
-                    if strike != 6 {
-                        if choice.contains(guess) {
-                            print("that's correct!")
-                            guessCount += 1
-                            strikeString.append(guess)
-                            for (index, char) in choice.enumerated() {
-                                let letter = Character(guess)
-                                if char == letter {
-                                    foundIndex = index
-                                    let stringIndex = solve.index(solve.startIndex, offsetBy: foundIndex)
-                                    solve.remove(at: stringIndex)
-                                    solve.insert(letter, at: stringIndex)
-                                }
-                            }
-                            if solve == choice {
-                                print("You solved it! Your word was \(choice)!")
-                                print("It took you \(guessCount) valid guesses to solve it!")
-                                while loopChoice {
-                                    print("Would you like to play again? yes or no")
-                                    if let win = readLine()?.lowercased() {
-                                        switch win {
-                                        case "yes":
-                                            print("yes")
-                                            loopGuess = false
-                                            loopChoice = false
-                                        case "no":
-                                            loopGuess = false
-                                            loopChoice = false
-                                            tryAgain = false
-                                        default:
-                                            print("That is not a vaild answer")
-                                        }
+                // make a new if holding the !strike seperate
+                if guess >= "a" && guess <= "z" && guess.count == 1 {
+                    if !strikeString.contains(guess) {
+                        if strike != 6 {
+                            if choice.contains(guess) {
+                                print("that's correct!")
+                                guessCount += 1
+                                strikeString.append(guess)
+                                for (index, char) in choice.enumerated() {
+                                    let letter = Character(guess)
+                                    if char == letter {
+                                        foundIndex = index
+                                        let stringIndex = solve.index(solve.startIndex, offsetBy: foundIndex)
+                                        solve.remove(at: stringIndex)
+                                        solve.insert(letter, at: stringIndex)
                                     }
                                 }
-                                
+                                if solve == choice {
+                                    print("You solved it! Your word was \(choice)!")
+                                    print("It took you \(guessCount) valid guesses to solve it!")
+                                    while loopChoice {
+                                        print("Would you like to play again? yes or no")
+                                        if let win = readLine()?.lowercased() {
+                                            switch win {
+                                            case "yes":
+                                                print("yes")
+                                                loopGuess = false
+                                                loopChoice = false
+                                            case "no":
+                                                loopGuess = false
+                                                loopChoice = false
+                                                tryAgain = false
+                                            default:
+                                                print("That is not a vaild answer")
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                            } else {
+                                print("sorry that's a strike.")
+                                guessCount += 1
+                                strike += 1
+                                strikeString.append(guess)
+                                switch strike {
+                                case 1:
+                                    gallow.remove(at: faceIndex)
+                                    gallow.insert(contentsOf: face, at: faceIndex)
+                                case 2:
+                                    gallow.remove(at: bodyIndex)
+                                    gallow.insert(contentsOf: body, at: bodyIndex)
+                                case 3:
+                                    gallow.remove(at: rightArmIndex)
+                                    gallow.insert(contentsOf: rightArm, at: rightArmIndex)
+                                case 4:
+                                    gallow.remove(at: leftArmIndex)
+                                    gallow.insert(contentsOf: leftArm, at: leftArmIndex)
+                                case 5:
+                                    gallow.remove(at: rightLegIndex)
+                                    gallow.insert(contentsOf: rightLeg, at: rightLegIndex)
+                                default:
+                                    print("")
+                                }
                             }
                         } else {
-                            print("sorry that's a strike.")
-                            guessCount += 1
-                            strike += 1
-                            strikeString.append(guess)
-                            switch strike {
-                            case 1:
-                                gallow.remove(at: faceIndex)
-                                gallow.insert(contentsOf: face, at: faceIndex)
-                            case 2:
-                                gallow.remove(at: bodyIndex)
-                                gallow.insert(contentsOf: body, at: bodyIndex)
-                            case 3:
-                                gallow.remove(at: rightArmIndex)
-                                gallow.insert(contentsOf: rightArm, at: rightArmIndex)
-                            case 4:
-                                gallow.remove(at: leftArmIndex)
-                                gallow.insert(contentsOf: leftArm, at: leftArmIndex)
-                            case 5:
-                                gallow.remove(at: rightLegIndex)
-                                gallow.insert(contentsOf: rightLeg, at: rightLegIndex)
-                            default:
-                                print("")
+                            gallow.remove(at: leftLegIndex)
+                            gallow.insert(contentsOf: leftLeg, at: leftLegIndex)
+                            print(gallow)
+                            print("That's 6 strikes! Game over.")
+                            print("Your word was \(choice). You made \(guessCount) valid guesses.")
+                            while loopOver {
+                                print("would you like to try again? yes or no")
+                                if let lose = readLine()?.lowercased() {
+                                    switch lose {
+                                    case "yes":
+                                        gallow = gallowAgain
+                                        loopGuess = false
+                                        loopOver = false
+                                        
+                                    case "no":
+                                        tryAgain = false
+                                        loopGuess = false
+                                        loopOver = false
+                                    default:
+                                        print("That is not a vaild answer")
+                                    }
+                                }
                             }
                         }
                     } else {
-                        gallow.remove(at: leftLegIndex)
-                        gallow.insert(contentsOf: leftLeg, at: leftLegIndex)
-                        print(gallow)
-                        print("That's 6 strikes! Game over.")
-                        print("Your word was \(choice). You made \(guessCount) valid guesses.")
-                        while loopOver {
-                            print("would you like to try again? yes or no")
-                            if let lose = readLine()?.lowercased() {
-                                switch lose {
-                                case "yes":
-                                    gallow = gallowAgain
-                                    loopGuess = false
-                                    loopOver = false
-                                    
-                                case "no":
-                                    tryAgain = false
-                                    loopGuess = false
-                                    loopOver = false
-                                default:
-                                    print("That is not a vaild answer")
-                                }
-                            }
-                        }
+                        print("You guessed that letter already.")
                     }
                 } else {
                     print("That is not a valid guess.")
