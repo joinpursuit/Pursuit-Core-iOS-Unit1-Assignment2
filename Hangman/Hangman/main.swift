@@ -45,14 +45,16 @@ let leftLegIndex = gallow.index(gallow.endIndex, offsetBy: -21)
 var tryAgain = true
 var loopGuess = true
 var loopOver = true
+var loopChoice = true
 var solve = ""
 var strikeString = ""
 var strike = 0
 var foundIndex = -1
+var guessCount = 0
 
 repeat {
     if let choice = allTheWords.randomElement() {
-        print(choice)
+        print(choice) // REMEMBER TO REMOVE BEFORE SUBMITTING!!!!!
         print("let's play hangman!")
         print("your target word has \(choice.count) letters")
         for _ in choice {
@@ -61,15 +63,16 @@ repeat {
         while loopGuess {
             print(solve)
             print(gallow)
-            print("Strikes: \(strike) out of 6")
             print("guess a letter")
-            //need to only read characters and not strings
+            //sometimes valid letters are counted as not valid
             if let guess = readLine()?.lowercased() {
                 print("you guessed \(guess).")
-                if guess >= "a" && guess <= "z" && !strikeString.contains(guess) {
-                    if strike < 5 {
+                if guess >= "a" && guess <= "z" && !strikeString.contains(guess) && guess.count == 1 {
+                    if strike != 6 {
                         if choice.contains(guess) {
                             print("that's correct!")
+                            guessCount += 1
+                            strikeString.append(guess)
                             for (index, char) in choice.enumerated() {
                                 let letter = Character(guess)
                                 if char == letter {
@@ -81,23 +84,29 @@ repeat {
                             }
                             if solve == choice {
                                 print("You solved it! Your word was \(choice)!")
-                                print("You win! Congrats!")
-                                print("Would you like to play again? yes or no")
-                                if let win = readLine()?.lowercased() {
-                                    switch win {
-                                    case "yes":
-                                        print("yes")
-                                        loopGuess = false
-                                    case "no":
-                                        loopGuess = false
-                                        tryAgain = false
-                                    default:
-                                        print("not a vaild answer")
+                                print("It took you \(guessCount) valid guesses to solve it!")
+                                while loopChoice {
+                                    print("Would you like to play again? yes or no")
+                                    if let win = readLine()?.lowercased() {
+                                        switch win {
+                                        case "yes":
+                                            print("yes")
+                                            loopGuess = false
+                                            loopChoice = false
+                                        case "no":
+                                            loopGuess = false
+                                            loopChoice = false
+                                            tryAgain = false
+                                        default:
+                                            print("That is not a vaild answer")
+                                        }
                                     }
                                 }
+                                
                             }
                         } else {
                             print("sorry that's a strike.")
+                            guessCount += 1
                             strike += 1
                             strikeString.append(guess)
                             switch strike {
@@ -125,6 +134,7 @@ repeat {
                         gallow.insert(contentsOf: leftLeg, at: leftLegIndex)
                         print(gallow)
                         print("That's 6 strikes! Game over.")
+                        print("Your word was \(choice). You made \(guessCount) valid guesses.")
                         while loopOver {
                             print("would you like to try again? yes or no")
                             if let lose = readLine()?.lowercased() {
@@ -139,20 +149,24 @@ repeat {
                                     loopGuess = false
                                     loopOver = false
                                 default:
-                                    print("not a vaild answer")
+                                    print("That is not a vaild answer")
                                 }
                             }
                         }
                     }
                 } else {
-                    print("that is not a valid guess.")
+                    print("That is not a valid guess.")
                 }
             }
         }
     }
     solve = ""
     strike = 0
+    guessCount = 0
     loopGuess = true
+    loopChoice = true
     loopOver = true
 } while tryAgain
 print("thanks for playing!")
+
+// do we need to count invalid guesses for the total of guesses at the end?
