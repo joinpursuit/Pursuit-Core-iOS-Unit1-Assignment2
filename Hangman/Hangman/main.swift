@@ -54,7 +54,7 @@ var guessCount = 0
 
 repeat {
     if let choice = allTheWords.randomElement() {
-        print(choice) // REMEMBER TO REMOVE BEFORE SUBMITTING!!!!!
+        //print(choice) // REMEMBER TO REMOVE BEFORE SUBMITTING!!!!!
         print("let's play hangman!")
         print("your target word has \(choice.count) letters")
         for _ in choice {
@@ -128,32 +128,32 @@ repeat {
                                 case 5:
                                     gallow.remove(at: rightLegIndex)
                                     gallow.insert(contentsOf: rightLeg, at: rightLegIndex)
+                                case 6:
+                                    gallow.remove(at: leftLegIndex)
+                                    gallow.insert(contentsOf: leftLeg, at: leftLegIndex)
+                                    print(gallow)
+                                    print("That's 6 strikes! Game over.")
+                                    print("Your word was \(choice). You made \(guessCount) valid guesses.")
+                                    while loopOver {
+                                        print("would you like to try again? yes or no")
+                                        if let lose = readLine()?.lowercased() {
+                                            switch lose {
+                                            case "yes":
+                                                gallow = gallowAgain
+                                                loopGuess = false
+                                                loopOver = false
+                                                
+                                            case "no":
+                                                tryAgain = false
+                                                loopGuess = false
+                                                loopOver = false
+                                            default:
+                                                print("That is not a vaild answer")
+                                            }
+                                        }
+                                    }
                                 default:
                                     print("")
-                                }
-                            }
-                        } else {
-                            gallow.remove(at: leftLegIndex)
-                            gallow.insert(contentsOf: leftLeg, at: leftLegIndex)
-                            print(gallow)
-                            print("That's 6 strikes! Game over.")
-                            print("Your word was \(choice). You made \(guessCount) valid guesses.")
-                            while loopOver {
-                                print("would you like to try again? yes or no")
-                                if let lose = readLine()?.lowercased() {
-                                    switch lose {
-                                    case "yes":
-                                        gallow = gallowAgain
-                                        loopGuess = false
-                                        loopOver = false
-                                        
-                                    case "no":
-                                        tryAgain = false
-                                        loopGuess = false
-                                        loopOver = false
-                                    default:
-                                        print("That is not a vaild answer")
-                                    }
                                 }
                             }
                         }
