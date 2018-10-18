@@ -46,7 +46,8 @@ let allWords = ["able", "about", "account", "acid", "across", "addition", "adjus
 
 var strikes = 6
 var tries = 0
-var selectword: String
+var totalTries = 0
+var selectWord: String
 var word: [Character] = []
 var answer: [Character] = []
 var badPile: [Character] = []
@@ -67,8 +68,8 @@ while fullGame {
 
     print("Fasten your seat belts! The game is starting!")
     print("Choosing a random word...")
-    selectword = allWords.randomElement()!
-    for i in selectword {
+    selectWord = allWords.randomElement()!
+    for i in selectWord {
         word.append(i)
         totalLetters += 1
     }
@@ -91,6 +92,7 @@ while fullGame {
                 continue
             }
 /* Add Hangman? */
+            totalTries += 1
             let char = Character(response.lowercased())
             if word.contains(char) {
                 if answer.contains(char) {
@@ -102,7 +104,8 @@ while fullGame {
                             answer[i] = word[i] // if it is true it then pushes the letter in the WORD array and changing the _ blank space in ANSWER array to the same index
                             /* Winning part */
                             if word == answer { // if both the arrays are the same it does the following
-                                print("You've solved the puzzle! Word is:")
+                                print("You've solved the puzzle! Word is \(selectWord)")
+                                print("It took you total of \(totalTries) tries to guess the word! Nice!")
                                 game = false // turns off game statement to false so it doesn't loop anymore
                                 break // stops the loop so it skips everything and gets to the next loop or condition
                             }
@@ -124,7 +127,7 @@ while fullGame {
                 switch tries {
                 case 0:
                     hangMan = """
-                    |--------=           
+                    |--------=
                     |        |
                     |        |
                     |
@@ -220,7 +223,8 @@ while fullGame {
 
 /* Print Bad Pile */
                 if tries == strikes {
-                    print("Oh No! You've lost!")
+                    print("Oh No! You've lost! The word was \(selectWord)")
+                    print("Took you total of \(totalTries) tries.")
                     game = false
                     break
                 }
