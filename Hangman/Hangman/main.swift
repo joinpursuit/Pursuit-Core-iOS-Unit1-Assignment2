@@ -54,9 +54,8 @@ var guessCount = 0
 
 repeat {
     if let choice = allTheWords.randomElement() {
-        //print(choice) // REMEMBER TO REMOVE BEFORE SUBMITTING!!!!!
-        print("let's play hangman!")
-        print("your target word has \(choice.count) letters")
+        print("Let's play hangman!")
+        print("Your target word has \(choice.count) letters")
         for _ in choice {
             solve += "_"
         }
@@ -64,16 +63,15 @@ repeat {
             print(solve)
             print("Letters guessed so far: \(strikeString)")
             print(gallow)
-            print("guess a letter")
+            print("Guess a letter")
             //sometimes valid letters are counted as not valid
             if let guess = readLine()?.lowercased() {
-                print("you guessed \(guess).")
-                // make a new if holding the !strike seperate
+                print("You guessed \(guess).")
                 if guess >= "a" && guess <= "z" && guess.count == 1 {
                     if !strikeString.contains(guess) {
                         if strike != 6 {
                             if choice.contains(guess) {
-                                print("that's correct!")
+                                print("That's correct!")
                                 guessCount += 1
                                 strikeString.append(guess)
                                 for (index, char) in choice.enumerated() {
@@ -108,7 +106,7 @@ repeat {
                                     
                                 }
                             } else {
-                                print("sorry that's a strike.")
+                                print("Sorry that's a strike.")
                                 guessCount += 1
                                 strike += 1
                                 strikeString.append(guess)
@@ -135,7 +133,7 @@ repeat {
                                     print("That's 6 strikes! Game over.")
                                     print("Your word was \(choice). You made \(guessCount) valid guesses.")
                                     while loopOver {
-                                        print("would you like to try again? yes or no")
+                                        print("Would you like to try again? yes or no")
                                         if let lose = readLine()?.lowercased() {
                                             switch lose {
                                             case "yes":
@@ -148,7 +146,7 @@ repeat {
                                                 loopGuess = false
                                                 loopOver = false
                                             default:
-                                                print("That is not a vaild answer")
+                                                print("That is not a vaild choice")
                                             }
                                         }
                                     }
@@ -173,6 +171,4 @@ repeat {
     loopChoice = true
     loopOver = true
 } while tryAgain
-print("thanks for playing!")
-
-// do we need to count invalid guesses for the total of guesses at the end?
+print("Thanks for playing!")
