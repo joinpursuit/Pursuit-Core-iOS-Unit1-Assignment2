@@ -50,9 +50,19 @@ var selectword: String
 var word: [Character] = []
 var answer: [Character] = []
 var badPile: [Character] = []
-var secondMenu = false
+var secondMenu = true
 var game: Bool = true
 var totalLetters = 0
+var hangMan = """
+|--------=
+|        |
+|        |
+|
+|
+|
+|     _______
+|____|_______|_______
+"""
 while fullGame {
 
     print("Fasten your seat belts! The game is starting!")
@@ -69,56 +79,150 @@ while fullGame {
     for i in answer {
         print(i, terminator: " ")
     }
+    print("")
+    /* Test print - Delete after*/
+    print(word)
+
 /* The CRAZY part */
     repeat {
         if let response = readLine() {
+            if response.count != 1 {
+                print("Only enter one character.")
+                continue
+            }
+/* Add Hangman? */
             let char = Character(response.lowercased())
             if word.contains(char) {
                 if answer.contains(char) {
                     print("You have already chosen letter \(char) before")
                 }
-                for i in 0..<word.count {
-                    for _ in word {
-                        if word[i] == char {
-                            answer[i] = word[i]
+                for i in 0..<word.count { // counts the amount of index in array
+                    for _ in word { // for every element in array
+                        if word[i] == char { // compares element in that index to user response
+                            answer[i] = word[i] // if it is true it then pushes the letter in the WORD array and changing the _ blank space in ANSWER array to the same index
+                            /* Winning part */
+                            if word == answer { // if both the arrays are the same it does the following
+                                print("You've solved the puzzle! Word is:")
+                                game = false // turns off game statement to false so it doesn't loop anymore
+                                break // stops the loop so it skips everything and gets to the next loop or condition
+                            }
                         }
                     }
                 }
+                print(hangMan)
+
                 for i in answer {
                     print(i, terminator: " ")
                 }
+                print("")
+
             } else if badPile.contains(char) {
                 print("You have already chosen letter \(char) before")
             } else {
 /* Else Begin for lose and win */
                 tries += 1
+                switch tries {
+                case 0:
+                    hangMan = """
+                    |--------=           
+                    |        |
+                    |        |
+                    |
+                    |
+                    |
+                    |     _______
+                    |____|_______|_______
+                    """
+                case 1:
+                    hangMan = """
+                    |-------=
+                    |       |
+                    |      _|_
+                    |     (x_X)
+                    |
+                    |
+                    |     _______
+                    |____|_______|_______
+                    """
+                case 2:
+                    hangMan = """
+                    |-------=
+                    |       |
+                    |      _|_
+                    |    _(x_X)_
+                    |    (__o__)
+                    |
+                    |     _______
+                    |____|_______|_______
+                    """
+                case 3:
+                    hangMan = """
+                    |-------=
+                    |       |
+                    |      _|_
+                    |    _(x_X)_
+                    |   /(__o__)
+                    |
+                    |     _______
+                    |____|_______|_______
+                    """
+                case 4:
+                    hangMan = """
+                    |-------=
+                    |       |
+                    |      _|_
+                    |    _(x_X)_
+                    |   /(__o__)\\
+                    |
+                    |     _______
+                    |____|_______|_______
+                    """
+                case 5:
+                    hangMan = """
+                    |-------=
+                    |       |
+                    |      _|_
+                    |    _(x_X)_
+                    |   /(__o__)\\
+                    |     |_|
+                    |     _______
+                    |____|_______|_______
+                    """
+                case 6:
+                    hangMan = """
+                    |-------=
+                    |       |
+                    |      _|_
+                    |    _(x_X)_
+                    |   /(__o__)\\
+                    |     |_|_|
+                    |     _______
+                    |____|_______|_______
+                    """
+                default:
+                    print("Invalid value for hangman, should be done on 6.")
+                }
                 print("Sorry! There are no \(char)'s")
                 print("Throwing \(char) in the bad pile!")
                 badPile.append(char)
                 let remaining = strikes - tries
-                print("Bad pile :\n")
+                print("Bad pile :")
+                print(hangMan)
                 for i in badPile {
                     print(i, terminator: " ")
                 }
+                print("")
                 print("You have \(remaining) tries left")
                 for i in answer {
                     print(i, terminator: " ")
                 }
-/* Print Bad Pile */
+                print("")
 
-/* ADD THE HANG MAN! Lots of if statements I believe.*/
+/* Print Bad Pile */
                 if tries == strikes {
                     print("Oh No! You've lost!")
                     game = false
                     break
-                }
-/* Winning part */
-                if word == answer {
-                    for i in answer {
-                        print(i, terminator: " ")
-                    }
-                    print("WIN!")
-                    game = false
                 }
             }
 /* Else End for lose and win */
@@ -132,6 +236,8 @@ while fullGame {
             switch response.lowercased() {
             case "1", "yes":
                 print("Woot! Restarting game")
+                answer = []
+                word = []
                 totalLetters = 0
                 tries = 0
                 game = true
