@@ -54,6 +54,7 @@ var badPile: [Character] = []
 var secondMenu = true
 var game: Bool = true
 var totalLetters = 0
+let alphabet: [Character] = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 var hangMan = """
 |--------=
 |        |
@@ -94,6 +95,12 @@ while fullGame {
 /* Add Hangman? */
             totalTries += 1
             let char = Character(response.lowercased())
+            /* Detect only letters*/
+            if !alphabet.contains(char){
+                print("Please only enter alphabets")
+                continue
+            }
+            /* Detect duplicates*/
             if word.contains(char) {
                 if answer.contains(char) {
                     print("You have already chosen letter \(char) before")
