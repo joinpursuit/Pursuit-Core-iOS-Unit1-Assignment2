@@ -14,112 +14,91 @@ let allTheWords = ["able", "about", "account", "acid", "across", "addition", "ad
 
 
 let strike1 = """
-0000000000000
-0           0
-0           1
-0          1 1
-0           1
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
+____
+|    |        1
+|
+|
+|
+|
+|_
 """
 
 let strike2 = """
-0000000000000
-0           0
-0           1
-0          1 1
-0           1
-0           2
-0           2
-0           2
-0
-0
-0
-0
-0
-0
+____
+|    |        2
+|    o
+|
+|
+|
+|_
 """
 
 let strike3 = """
-0000000000000
-0           0
-0           1
-0          1 1
-0           1
-0          32
-0         3 2
-0        3  2
-0
-0
-0
-0
-0
-0
-0
+____
+|    |        3
+|    o
+|   /
+|
+|
+|_
 """
 
 let strike4 = """
-0000000000000
-0           0
-0           1
-0          1 1
-0           1
-0          324
-0         3 2 4
-0        3  2  4
-0
-0
-0
-0
-0
-0
-0
+____
+|    |        4
+|    o
+|   /|
+|    |
+|
+|_
 """
+
 let strike5 = """
-0000000000000
-0           0
-0           1
-0          1 1
-0           1
-0          324
-0         3 2 4
-0        3  2  4
-0          5
-0         5
-0        5
-0       5
-0
-0
-0
+____
+|    |        5
+|    o
+|   /|\
+|    |
+|
+|_
 """
 
 let strike6 = """
-0000000000000
-0           0
-0           1
-0          1 1
-0           1
-0          324
-0         3 2 4
-0        3  2  4
-0          5 6
-0         5   6
-0        5     6
-0       5       6
-0
-0        *GAME*
-0        *OVER*
+____
+|    |        6
+|    o
+|   /|\
+|    |
+|   /
+|_
 """
 
+let strike7 = """
+____
+|    |        7
+|    o   *GAME OVER*
+|   /|\
+|    |
+|   / \
+|_
+"""
+
+
+var strikeCounter: Int = 0
+let maximumStrike: Int = 7
+var playerTotalWin: Int = 0
+var playerTotalLoss: Int = 0
+
 var playGame: Bool = true
+var responseAccepted: Bool = false
+var acceptingResponse: Bool = true
+var runThis: Bool = false
+var endingMessage: Bool = false
+var playerWins: Bool = false
+
+var guessLetter: String = ""
+var wrongGuess: [String] = []
+var rightGuess: [String] = []
 
 while playGame {
     
@@ -134,36 +113,24 @@ var wordChoiceArray: [String] = []
 for letter in wordChoiceTempArray {
     wordChoiceArray.append(String(letter))
 }
-print(wordChoiceArray)
 
 // displaying _ for each letter of word
-var wordChoiceDisplay: String = ""
-var wordChoiceDisplaySaved: String = ""
+var display: [String] = []
 
 for _ in wordChoiceArray {
-    wordChoiceDisplay += "_ "
+    display.append("_")
 }
-print(wordChoiceDisplay)
+
+var displayAsString: String = String(display.flatMap{String($0)})
+print(displayAsString)
 
 print("This word has \(wordChoice.count) letters")
 
-var strikeCounter: Int = 0
-let maximumStrike: Int = 6
-
-var responseAccepted = false
-var acceptingResponse = true
-var runThis: Bool = false
-var endingMessage: Bool = false
-var playerWins: Bool = false
-    
-var guessLetter: String = ""
-var wrongGuess: [String] = []
-var rightGuess: [String] = [] // need to right guess letter into
     
 while acceptingResponse {
     
 while responseAccepted == false {
-    print("Please enter a letter.")
+    print(">> Please enter a letter.")
     // nil coalescing
     guessLetter = readLine() ?? "default"
     switch guessLetter.lowercased() {
@@ -177,23 +144,17 @@ while responseAccepted == false {
 }
 
 
-while runThis { // run this while letter is in the word
-if wordChoiceArray.contains(guessLetter) {
-    // !rightGuess.contains(guessLetter)
+while runThis {
+    if wordChoiceArray.contains(guessLetter) && !rightGuess.contains(guessLetter) {
     rightGuess.append(guessLetter)
     for correctLetter in rightGuess {
-        wordChoiceDisplay = ""
-        for letter in wordChoiceArray { // for every letter in wordChoice if the letter matches guessLetter, reveal the guessLetter, otherwise continue using underscores to represent the hidden letters
+        for (index, letter) in wordChoiceArray.enumerated() {
                 if letter == correctLetter {
-                    wordChoiceDisplay += "\(letter) "
-                } else {
-                    wordChoiceDisplay += "_ "
+                    display[index] = letter
+                    }
                 }
         }
-        wordChoiceDisplaySaved = wordChoiceDisplay // for looping-purposes
         runThis = false
-    }
-    print(wordChoiceDisplay)
     } else {
     if !wrongGuess.contains(guessLetter) {
         wrongGuess.append(guessLetter)
@@ -204,13 +165,16 @@ if wordChoiceArray.contains(guessLetter) {
             runThis = false
     }
     }
-}
+    }
+    displayAsString = String(display.flatMap{String($0)})
+    print(displayAsString)
     
 if rightGuess.count == Set(wordChoiceArray).count {
     endingMessage = true
     playerWins = true
     acceptingResponse = false
     responseAccepted = true
+    playerTotalWin += 1
 } else {
     if strikeCounter == 1 {
     print("You have \(strikeCounter) strike, and \(maximumStrike - strikeCounter) attempts left.")
@@ -220,137 +184,83 @@ if rightGuess.count == Set(wordChoiceArray).count {
     print("You are doing a good job so far!")
 }
 
-sleep(1)
-
-switch strikeCounter {
-    case 0:
-    print("Keep up the good work.")
-    case 1:
-    print(strike1)
-    case 2:
-    print(strike2)
-    case 3:
-    print(strike3)
-    case 4:
-    print(strike4)
-    case 5:
-    print(strike5)
-    case 6:
-    print(strike6)
-    endingMessage = true
-    default:
-    print("Man: MIA?????")
+    if rightGuess.count > 0 {
+        print("Right guesses are: \(rightGuess).")
+    }
+    if wrongGuess.count > 0 {
+        print("Wrong guesses are: \(wrongGuess).")
     }
 
-    if wrongGuess.count > 0 {
-        print("Wrong guesses are \(wrongGuess).")
-        }
-    
-    print(wordChoiceDisplaySaved)
-    print("right guesses: \(rightGuess)")
-    print("wrong guesses: \(wrongGuess)")
     acceptingResponse = true
     responseAccepted = false
+    
+    sleep(1)
+    
+    switch strikeCounter {
+    case 0:
+        print("Keep up the good work.")
+    case 1:
+        print(strike1)
+    case 2:
+        print(strike2)
+    case 3:
+        print(strike3)
+    case 4:
+        print(strike4)
+    case 5:
+        print(strike5)
+    case 6:
+        print(strike6)
+    case 7:
+        print(strike7)
+        endingMessage = true
+        playerWins = false
+        acceptingResponse = false
+        responseAccepted = true
+        playerTotalLoss += 1
+        break
+    default:
+        print("Man: MIA?????")
+    }
 }
 }
 
 
 while endingMessage {
     if playerWins {
-        print("Great job! You won")
+        print("Great job! You won.")
         endingMessage = false
         playGame = false
     } else {
         print("You lost.")
-        endingMessage = true
+        endingMessage = false
+        playGame = false
+        
 sleep(1)
 print("The correct answer is: \(wordChoice)")
-        endingMessage = true
+        endingMessage = false
         playGame = false
     }
 }
-    
+    print("Your Total Wins: \(playerTotalWin) || Loss: \(playerTotalLoss)")
+    sleep(1)
     print("Would you like to restart? (yes) or (no)")
     let restart = readLine()
     if let answer = restart {
         if answer == "yes" {
             print("Let's begin again!")
             playGame = true
+            acceptingResponse = true
+            responseAccepted = false
+            runThis = false
+            endingMessage = false
+            wordChoiceArray = []
+            display = []
+            rightGuess = []
+            wrongGuess = []
+            strikeCounter = 0
         } else {
             print("See you next time.")
         }
     }
 }
-
-
-
-//repeat {
-//    print("Please enter a letter.")
-//    if let guessLetter1 = readLine() {
-//        for alphabet in alphabetArray {
-//            if guessLetter1.lowercased() == String(alphabet) {
-//                print("You chose \"\(guessLetter1)\".")
-//                loopRepeat = false
-//                for letter in wordChoiceAsArray {
-//                    // comparing guess letter against
-//                    wordChoiceDisplay = ""
-//                    if guessLetter1 == String(letter) {
-//                        for letter in wordChoiceAsArray {
-//                            strikeCounter = 0
-//                            if String(letter) == guessLetter1 {
-//                                wordChoiceDisplay += "\(letter) "
-//                            } else {
-//                                wordChoiceDisplay += "_ "
-//                        }
-//                        }
-//                        print(wordChoiceDisplay)
-//                    }
-//                    else {
-//                        strikeCounter += 1
-////                         how do I run this switch when the user guesses a letter that is not in the word so that it prints out the corresponding picture
-//                            switch strikeCounter {
-//                            case 1:
-//                                print(strike1)
-//                            case 2:
-//                                print(strike2)
-//                            case 3:
-//                                print(strike3)
-//                            case 4:
-//                                print(strike4)
-//                            case 5:
-//                                print(strike5)
-//                            default:
-//                                print(strike6)
-//                        }
-//                    }
-//                    }
-//
-//            }
-//        }
-//    } else {
-//        print("Invalid input. Please try again")
-//    }
-//} while loopRepeat
-//
-//print("end of while")
-//
-//var maximumGuess = 8
-
-
-
-
-// when player wins, give them the choice of restarting the game. 
-
-// embed this in a if/else under playerwins... this is the scenario for when the player loses
-//print("Do you want to see the answer. /n(yes) or (no)")
-//var revealAnswerChoice = readLine()
-//if let answer = revealAnswerChoice {
-//    if answer.lowercased() == "yes" {
-//    print("The correct answer is: \(wordChoice)")
-//    } else {
-//    print("Maybe you can figure it out later.")
-//}
-//} else {
-//    print("Invalid answer")
-//}
-
