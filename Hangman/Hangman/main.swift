@@ -57,7 +57,7 @@ let strike5 = """
 ____
 |    |        5
 |    o
-|   /|\
+|   /|\\
 |    |
 |
 |_
@@ -67,7 +67,7 @@ let strike6 = """
 ____
 |    |        6
 |    o
-|   /|\
+|   /|\\
 |    |
 |   /
 |_
@@ -77,9 +77,9 @@ let strike7 = """
 ____
 |    |        7
 |    o   *GAME OVER*
-|   /|\
+|   /|\\
 |    |
-|   / \
+|   / \\
 |_
 """
 
@@ -154,6 +154,9 @@ while runThis {
                     }
                 }
         }
+        runThis = false
+    } else if wordChoiceArray.contains(guessLetter) && rightGuess.contains(guessLetter) {
+        print("You've already entered \"\(guessLetter)\" before.")
         runThis = false
     } else {
     if !wrongGuess.contains(guessLetter) {
