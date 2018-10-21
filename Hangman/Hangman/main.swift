@@ -21,7 +21,7 @@ while restart {
     print("Enter your name:\n")
     let playerName = readLine()
 
-    print("\nLet's play some Hangman, \(playerName!).\n")
+    print("\nLet's play some Hangman, \(playerName!) 👍.\n")
     sleep(1)
 
     print("Generating word.....\n")
@@ -52,8 +52,8 @@ while restart {
     var lettersLeft = computerWord.count     // before the player wins
     var chances = 6                          // before the player loses
 
-    print(computerWordArr)
-    print(computerWord)
+    //print(computerWordArr)
+    //print(computerWord)
     let game = true
 
     while game {
@@ -171,6 +171,11 @@ while restart {
         if let userInput = userInput {
             let input = userInput.uppercased()
             
+            guard input.count == 1 else {
+                print("Please enter \"1\" letter only.")
+                continue
+            }
+            
             guard alphabets.contains(input) else {
                 print("\nThat's not a letter.\"")
                 continue
@@ -178,11 +183,6 @@ while restart {
             
             guard !guessedLetters.contains(input) else {
                 print("\nYou already enter \(input).")
-                continue
-            }
-            
-            guard input.count == 1 else {
-                print("Please enter \"1\" letter only.")
                 continue
             }
             
@@ -201,7 +201,7 @@ while restart {
                     lettersLeft -= 1
                 }
             }
-            print("HooRay!!, the word contains a \"\(input)\" 💃🕺🏻.\n")
+            print("HooRay!!, the word contains \"\(input)\" 💃🕺🏻.\n")
             
         } else {
             print("\nInvalid Input")
@@ -212,7 +212,7 @@ while restart {
     if lettersLeft == 0 {
         print("You Win the GAME!!! 👏")
         sleep(1)
-        print("It takes you \"\(guessNum)\" guesses to figure out the word 😎." )
+        print("It took you \"\(guessNum)\" guesses to figure out the word 😎." )
     } else {
         print("The word is \"\(computerWord).\" \nBetter luck next time 😉.")
     }
