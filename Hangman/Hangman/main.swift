@@ -64,7 +64,6 @@ repeat {
             print("Letters guessed so far: \(strikeString)")
             print(gallow)
             print("Guess a letter")
-            //sometimes valid letters are counted as not valid
             if let guess = readLine()?.lowercased() {
                 print("You guessed \(guess).")
                 if guess >= "a" && guess <= "z" && guess.count == 1 {
@@ -91,7 +90,7 @@ repeat {
                                         if let win = readLine()?.lowercased() {
                                             switch win {
                                             case "yes":
-                                                print("yes")
+                                                gallow = gallowAgain
                                                 loopGuess = false
                                                 loopChoice = false
                                             case "no":
@@ -167,6 +166,7 @@ repeat {
     solve = ""
     strike = 0
     guessCount = 0
+    strikeString = ""
     loopGuess = true
     loopChoice = true
     loopOver = true
