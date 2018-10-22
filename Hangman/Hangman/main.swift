@@ -147,6 +147,7 @@ while responseAccepted == false {
 while runThis {
     if wordChoiceArray.contains(guessLetter) && !rightGuess.contains(guessLetter) {
     rightGuess.append(guessLetter)
+    print("CORRECT GUESS! 🙂 ")
     for correctLetter in rightGuess {
         for (index, letter) in wordChoiceArray.enumerated() {
                 if letter == correctLetter {
@@ -161,6 +162,7 @@ while runThis {
     } else {
     if !wrongGuess.contains(guessLetter) {
         wrongGuess.append(guessLetter)
+        print("INCORRECT GUESS! ☹️ ")
         strikeCounter += 1
         runThis = false
         } else {
