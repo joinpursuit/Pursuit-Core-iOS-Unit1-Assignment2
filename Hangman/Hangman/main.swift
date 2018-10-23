@@ -225,7 +225,7 @@ var playAgain = 0
 var anotherGame = 0
 var doYouWantToPlay: String? = ""
 
-repeat {
+outer: repeat {
     print(initialMessage)
     doYouWantToPlay = readLine()
     let userWantsToPlay = doYouWantToPlay ?? ("not a valid selection")
@@ -237,7 +237,7 @@ repeat {
             print ("What is another life...GOOD BYE!")
             print("")
             print("")
-            break
+            break outer
         default:
             print("Not a valid entry. Please try again.")
             print("")
@@ -397,7 +397,7 @@ while startGame == true {
         }
     }
     
-    repeat {
+    outer: repeat {
         print(messagePlayAgain)
         doYouWantToPlay = readLine()
         let userWantsToPlay = doYouWantToPlay ?? ("Invalid input, please try again.")
@@ -409,8 +409,7 @@ while startGame == true {
                 print ("What is another life...GOOD BYE!")
                 print("")
                 print("")
-                
-                break
+                break outer
             default:
                 print("Not a valid entry. Please try again.")
                 startGame = false
