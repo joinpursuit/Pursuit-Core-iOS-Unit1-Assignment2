@@ -134,7 +134,7 @@ var correct = 0
                 print("")
                 
                 randomword = allTheWords.randomElement()!
-                print(randomword)
+                
                 print("WORD HAS \(randomword.count) LETTERS")
                 for _ in 0..<randomword.count {
                     print(" _ ", terminator: "")
