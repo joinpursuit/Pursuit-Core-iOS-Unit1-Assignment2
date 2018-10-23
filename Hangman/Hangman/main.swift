@@ -211,11 +211,12 @@ let messagePlayAgain = """
         H A N G M A N
 ********************************
 
-Wannt to save another life?
+Should we try saving another life?
 
 Press [1] for Yes or [2] for No:
 
 """
+
 
 
 var userChoseToPlay = 1
@@ -233,13 +234,18 @@ repeat {
         case 1:
             startGame = true
         case 2:
-            print ("What is another life...")
-            startGame = false
+            print ("What is another life...GOOD BYE!")
+            print("")
+            print("")
+            break
         default:
             print("Not a valid entry. Please try again.")
+            print("")
+            print("")
+            startGame = false
         }
     }
-} while userChoseToPlay != 1
+} while startGame == false && (userChoseToPlay != 1 || userChoseToPlay != 2)
 
 
 while startGame == true {
@@ -247,7 +253,7 @@ while startGame == true {
     let randonWord = arrofWords.randomElement()
     let unwrappedRandomWord = randonWord ?? "no value"
     
-    let randomWordArray = Array(unwrappedRandomWord) // characters - this is where i store my word
+    let randomWordArray = Array(unwrappedRandomWord)
     
     var arrayOfWrongLetters = [String]()
     
@@ -257,8 +263,8 @@ while startGame == true {
     
     let alphabet = """
         Letters to choose from:
-        A, B, C, D, E, F, G, H, I, J, K, L, M,
-        N, O, P, Q, R, S, T, U, V, W, X, Y, Z
+        a, b, c, d, e, f, g, h, i, j, k, l, m,
+        n, o, p, q, r, s, t, u, v, w, x, y, z
         """
     
     let gameSetUp = """
@@ -272,50 +278,50 @@ while startGame == true {
     """
     
     var counterForGuesses = 0
-    var safeLetterIndex = 0
+    var indexLetterUserEnterUnwrapped = 0
     var countingFailedAttempts = 0
     
     print(gameSetUp)
     
-    var letter: String = ""
+    var userEnteredLetter: String = ""
     
     
     while countingFailedAttempts <= 6 {
         
-        var responseAccepted = false
+        var unwrappingResponse = false
         
-        while responseAccepted == false {
-            print(">> Enter a letter: ")
-            letter = readLine()?.lowercased() ?? "default"
-            switch letter.lowercased() {
+        while unwrappingResponse == false {
+            print("Enter a letter: ")
+            userEnteredLetter = readLine()?.lowercased() ?? "default"
+            switch userEnteredLetter.lowercased() {
             case "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z":
-                print("You entered \"\(letter)\": ")
+                print("You entered: \"\(userEnteredLetter)\" ")
                 counterForGuesses += 1
-                responseAccepted = true
+                unwrappingResponse = true
             default:
                 print("Not a valid entry. Please try again.")
             }
         }
         
-        let castedChar:Character = Character(letter)
+        let letterToCharacter:Character = Character(userEnteredLetter)
         
-        if randomWordArray.contains(castedChar){
+        if randomWordArray.contains(letterToCharacter){
             for (index, element) in randomWordArray.enumerated(){
-                if castedChar == element{
-                    safeLetterIndex = index
-                    blankArray[safeLetterIndex] = element
+                if letterToCharacter == element{
+                    indexLetterUserEnterUnwrapped = index
+                    blankArray[indexLetterUserEnterUnwrapped] = element
                 }
                 
             }
             
-        } else if !randomWordArray.contains(castedChar){
+        } else if !randomWordArray.contains(letterToCharacter){
             countingFailedAttempts += 1
-            arrayOfWrongLetters.append(String(letter))
+            arrayOfWrongLetters.append(String(userEnteredLetter))
             switch countingFailedAttempts{
                 
             case 5:
                 print(hangmanFive)
-                print("This was attempt \(countingFailedAttempts) of 6 left to save a life")
+                print("This was attempt \(countingFailedAttempts) of 6 you have to save a life")
                 print("")
                 
                 print("Wrong letters that kill: \(arrayOfWrongLetters)")
@@ -323,7 +329,7 @@ while startGame == true {
                 
             case 4:
                 print(hangmanFour)
-                print("This was attempt \(countingFailedAttempts) of 6 left to save a life")
+                print("This was attempt \(countingFailedAttempts) of 6 you have to save a life")
                 print("")
                 
                 print("Wrong letters that kill: \(arrayOfWrongLetters)")
@@ -331,7 +337,7 @@ while startGame == true {
                 
             case 3:
                 print(hangmanThree)
-                print("This was attempt \(countingFailedAttempts) of 6 left to save a life")
+                print("This was attempt \(countingFailedAttempts) of 6 you have to save a life")
                 print("")
                 
                 print("Wrong letters that kill: \(arrayOfWrongLetters)")
@@ -339,7 +345,7 @@ while startGame == true {
                 
             case 2:
                 print(hangmanTwo)
-                print("This was attempt \(countingFailedAttempts) of 6 left to save a life")
+                print("This was attempt \(countingFailedAttempts) of 6 you have to save a life")
                 print("")
                 
                 print("Wrong letters that kill: \(arrayOfWrongLetters)")
@@ -347,7 +353,7 @@ while startGame == true {
                 
             case 1:
                 print(hangmanFirst)
-                print("This was attempt \(countingFailedAttempts) of 6 left to save a life")
+                print("This was attempt \(countingFailedAttempts) of 6 you have to save a life")
                 print("")
                 
                 print("Wrong letters that kill: \(arrayOfWrongLetters)")
@@ -355,7 +361,7 @@ while startGame == true {
                 
             case 6:
                 print(hangmanSix)
-                print("A life is gone...")
+                print("A life is gooone.💀.💀.💀")
                 print("")
                 print("Wrong letters that kill: \(arrayOfWrongLetters)")
                 print("")
@@ -364,16 +370,16 @@ while startGame == true {
                 print("Not even with \(counterForGuesses) guesses could we save this human... oh well!")
                 print("")
                 
-                //                fallthrough if I can figure out how to restarts game
                 countingFailedAttempts = 7
+                startGame = false
             default:
-                print("You are doneso...")
+                print("You are doneso... 👻")
             }
             
         } else {
             print("Not valid entry, please try again.")
         }
-        print("These are the letters you got right: \(blankArray)")
+        print("Right letters that save lives: \(blankArray)")
         print("")
         if blankArray == randomWordArray {
             let finalGuessedWord = String(unwrappedRandomWord)
@@ -387,23 +393,28 @@ while startGame == true {
             print("It only took you \(counterForGuesses) guesses.")
             print("")
             countingFailedAttempts = 7
+            startGame = false
         }
     }
     
     repeat {
         print(messagePlayAgain)
         doYouWantToPlay = readLine()
-        let userWantsToPlay = doYouWantToPlay ?? ("not a valid selection")
+        let userWantsToPlay = doYouWantToPlay ?? ("Invalid input, please try again.")
         if let userWantsToPlayInt = Int(userWantsToPlay){
             switch userWantsToPlayInt{
             case 1:
                 startGame = true
             case 2:
-                print ("What is another life...")
-                startGame = false
+                print ("What is another life...GOOD BYE!")
+                print("")
+                print("")
+                
+                break
             default:
                 print("Not a valid entry. Please try again.")
+                startGame = false
             }
         }
-    } while userChoseToPlay != 1
+    } while startGame == false && (userChoseToPlay != 1 || userChoseToPlay != 2)
 }
