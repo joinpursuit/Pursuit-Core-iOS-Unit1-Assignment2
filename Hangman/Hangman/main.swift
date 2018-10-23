@@ -31,7 +31,7 @@ while activeGameState {
     print(placeHolder)
     
     while guessCount > 0 {
-        print("Choose Letter \(activeWord)")
+        print("Choose Letter")
         for letter in activeWord{
             if storedUserInput.contains(String(letter)){
                 print(letter, terminator: " ")
@@ -162,7 +162,7 @@ while activeGameState {
         }
         else if again == "no"{
             activeGameState = false
-            print("Fine you suck anyway!")
+            print("Fine I don't want to play with you anyway!")
         } else {
             print("Please type in yes or no")
         }
