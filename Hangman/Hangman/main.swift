@@ -102,7 +102,6 @@ repeat {
                                             }
                                         }
                                     }
-                                    
                                 }
                             } else {
                                 print("Sorry that's a strike.")
