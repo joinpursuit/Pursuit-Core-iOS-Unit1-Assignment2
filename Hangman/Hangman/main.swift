@@ -14,7 +14,7 @@ let alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"
 
 var restart = true
 
-while restart {
+repeat {
     
     print("Hello, Please enter your name 🙂:\n")
     let playerName = readLine()
@@ -217,7 +217,7 @@ while restart {
     
     //ask user to restart the game
     let invalidResponse = true
-    while invalidResponse {
+    repeat {
         sleep(1)
         print("Do you want to play again 😏?")
         if let response = readLine()?.lowercased() {
@@ -234,6 +234,6 @@ while restart {
                 print("Is that a \"Yes\" or \"No\"? 🤨")
             }
         }
-    }
+    } while invalidResponse
     
-}
+} while restart
