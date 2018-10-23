@@ -16,6 +16,65 @@ let allTheWords = ["able", "about", "account", "acid", "across", "addition", "ad
 var randomWord = ""
 var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 
+let hangManArtStick = """
+_________
+|         |
+|
+|
+|
+|
+|
+
+"""
+let hangManArtHead =  """
+_________
+|         |
+|         0
+|
+|
+|
+"""
+let hangManArtBody = """
+_________
+|         |
+|         0
+|         |
+|
+|
+|
+
+"""
+let hangManArms = """
+_________
+|         |
+|         0
+|        /|\\
+|
+|
+|
+
+"""
+let hangManLeftLeg = """
+_________
+|         |
+|         0
+|        /|\\
+|          \\
+|
+|
+
+"""
+let hangManFullBody = """
+_________
+|         |
+|         0
+|        /|\\
+|        / \\
+|
+|
+
+"""
+
 if let random = allTheWords.randomElement() {
     randomWord = random
 
@@ -31,9 +90,9 @@ var UserGuessWord = Array(repeatElement("-", count: arrayRandomWord.count))
 var usedOfLetters: [String] = []
 var numberOfTrials: Int = 6
 gameloop:while numberOfTrials > 0 {
-    print("please enter a letter")
-    
     print("You have \(numberOfTrials) number of trials left")
+    
+    print("please enter a letter")
     print(UserGuessWord)
     let userGuess = readLine()
     guard let userGuessUnwrap = userGuess else {
@@ -53,6 +112,24 @@ gameloop:while numberOfTrials > 0 {
         usedOfLetters.append(userGuessUnwrap)
         print("Your input letter is incorrect. Please try again")
         numberOfTrials -= 1
+        switch numberOfTrials {
+            
+        case 0:
+            print(hangManFullBody)
+        case 1:
+            print(hangManLeftLeg)
+        case 2:
+            print(hangManArms)
+        case 3:
+            print(hangManArtBody)
+        case 4:
+            print(hangManArtHead)
+        case 5:
+            print(hangManArtStick)
+    
+        default:
+            print("Get Out")
+        }
     // Right Guess
     } else if arrayRandomWord.contains(userGuessUnwrap) {
         
@@ -62,16 +139,13 @@ gameloop:while numberOfTrials > 0 {
         print("You got it right")
             print(UserGuessWord)
             if UserGuessWord == arrayRandomWord {
-                print("YOU WON🕺")
+                print("YOU WON🕺\(arrayRandomWord) is the right word")
                 break gameloop
             }
         }
         }
     }
     
-
-    
-
 }
 if numberOfTrials == 0 {
     print("YOU LOST 💀 ! The right word was \(randomWord)")
