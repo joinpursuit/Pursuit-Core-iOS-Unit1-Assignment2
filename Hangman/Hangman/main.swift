@@ -84,10 +84,10 @@ let allTheWords = ["able", "about", "account", "acid", "across", "addition", "ad
  add bellow :Visual Candy, Welcome Message, Game Instructions- enter to play,
  */
 
-//-------created a var to use randonWord globally
+//-------created a var to use randomWord globally
 var globallyUsedVarRandomWord = " "
 
-// prompt user
+//-------user prompts
 print("""
 
             Welcome To Hangman
@@ -97,7 +97,6 @@ print("""
 
 //2 sec delay for message
 sleep(1)
-
 print("""
         
 
@@ -108,11 +107,11 @@ print("""
         """)
 //if the word is this long allow this many hints
 
-//2 sec prompt delay for dashes
+//2 sec prompt delay for dashes of randomWord to guess
 sleep(2)
 
 
-//------add dashes to var
+//------Declaring empty Arrays for randomword and its 'clone' array
 var randomWordArray = [String]()
 var dashesArray = [String]()
 
@@ -121,7 +120,7 @@ var dashesArray = [String]()
 if let randomWord = allTheWords.randomElement(){
     globallyUsedVarRandomWord = randomWord
     
-//------loop tells the dashes to add
+//------loop tells count of dashes to add
     for _ in randomWord {
         dashesArray += ["_"]
         }
@@ -130,48 +129,71 @@ if let randomWord = allTheWords.randomElement(){
         }
 print(dashesArray)
 
-//----convert character array again into a array of strings to be compared
+//----convert character array back into a array of strings separated by ' ' ea,instead of a single word to be ==
 var randomWordArrayCharacter = Array(globallyUsedVarRandomWord)
 for i in 0..<randomWordArrayCharacter.count{
     randomWordArray.append(String(randomWordArrayCharacter[i]))
-    
 }
-
 
 // -----omit at end of project
 print(randomWordArray)
 
 
 //------get users entered character safely unwrapped
-var chances = 0
-while chances <= 6 {
+//while loop begins
+
+var chancesCount = 1
+while chancesCount <= 6 {
 if let userResponse = readLine(){
     if userResponse.count == 1 {
-        print(userResponse)
+        //print(userResponse)
  
 
 //add it to an array to check it if like other chars in other array. holds dashes to replace by index? how the computer put == character where belongs
-if randomWordArray.contains(userResponse.lowercased()){
-    for i in 0..<randomWordArray.count{
-        if userResponse.lowercased() == randomWordArray[i]{
+        if randomWordArray.contains(userResponse.lowercased()){
+            for i in 0..<randomWordArray.count{
+                if userResponse == randomWordArray[i]{
                     dashesArray[i] = randomWordArray[i]
+                   
+              //check if is too many ifs -below
+                }
+       }
+ }
+    else if !randomWordArray.contains(userResponse.lowercased()){
+        chancesCount += 1
+            for i in 0..<chancesCount{
+                if i == 6{
+                print("The right word is \(globallyUsedVarRandomWord)")
+                }
+            }
+        print("\(7 - chancesCount) chances left")
+        
+
+        }
+    
+}else {
+    print("please guess a letter")
+    print("invalid entry")
+    }
+
+    print(dashesArray)
+    if dashesArray == randomWordArray{
+        print("you won!")
+          sleep(1)
+          print("Play Again? y or n")
+        if let playAgain = readLine(){
+            switch playAgain{
+            case "no" :
+                print("Thanks for playing")
+                break
+            case "yes" :
+                chancesCount = 1
+                continue
+            default:
+                print("yes or no ?")
             }
         }
- }else if !randomWordArray.contains(userResponse.lowercased()){
-        chances += 1
-        print("\(6 - chances) chances")
-        print("The right word is \(globallyUsedVarRandomWord)")
-
-} else {
-        print("please guess a letter")
-        print("invalid entry")
-}
-        
-    print(dashesArray)
-        if dashesArray == randomWordArray{
-            print("you won!")
-        }
-}
-
+    
+    }
 }
 }
