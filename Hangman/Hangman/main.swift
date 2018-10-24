@@ -35,7 +35,7 @@ loop2 :while game == true   {
     let mainGame = true
     
     let computerWord = Array(randomWord!)    //change randomWord to array
-    print(computerWord)// the word computer pick
+//    print(computerWord)// the word computer pick
     
     
     var userInput = ""
