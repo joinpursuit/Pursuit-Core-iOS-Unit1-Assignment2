@@ -150,6 +150,7 @@ while activeGameState {
     
     
     if guessCount == 0 {
+        print("The word was we were looking for was \(activeWord).")
         print("GAME OVER")
     }
     
