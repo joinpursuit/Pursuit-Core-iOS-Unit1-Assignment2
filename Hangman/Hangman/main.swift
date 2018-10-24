@@ -140,7 +140,7 @@ while activeGameState {
         
         
         if !userCorrectLetters.contains("_") {
-            print("You survived your Trial! Congratulations!")
+            print("You figured out the correct word was \(activeWord)! Congratulations!")
             break
             
         }
