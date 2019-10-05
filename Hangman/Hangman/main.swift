@@ -8,5 +8,25 @@
 
 import Foundation
 
-print("Hello, World!")
+func printHead()    {
+}
 
+func printBody()    {
+    
+}
+
+func PrintLeftArm() {
+    
+}
+
+func printRightArm()    {
+    
+}
+
+func printLeftLeg() {
+    
+}
+
+func printRightLeg()    {
+    
+}
