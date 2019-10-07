@@ -11,7 +11,8 @@ import Foundation
 var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 let allTheWords = ["able", "about", "account"]
 
-let word = allTheWords.randomElement() ?? "bob"
+//let word = allTheWords.randomElement() ?? "bob"
+let word = "alla"
 print(word)
 
 // creating hidden word:
@@ -21,7 +22,7 @@ for _ in 1...word.count {
     hiddenWord.append("_")
 }
 
-print(hiddenWord) // "_____"
+print(hiddenWord) // array
 
 // setting number of turns:
 
@@ -35,21 +36,25 @@ for _ in 1...numTurns { // Loop for number of turns
     
     var counter = 0
     
+    if word.contains(choice) { // checks if word contains the letter entered
+        
     for char in word { // loops through the word
        
 
         if choice == String(char) { // checks if user letter is = to
-            
            hiddenWord[counter] = choice
-           print(hiddenWord.joined(separator:""))
-            
         }
         counter += 1
         // print(counter)
-
     }
-
+    
+print(hiddenWord.joined(separator:""))
+    } else {
+        print("Wrong")
+        // here is where I should increase a wrongtries variable which should be equal to 6, because once it hit 6 the player would have been hung!
+    }
 }
+
 
 
 /*
