@@ -18,7 +18,7 @@ var hangmanStates = ["""
       |
 =========
 """,
-"""
+                     """
   +---+
   |   |
   O   |
@@ -27,7 +27,7 @@ var hangmanStates = ["""
       |
 =========
 """,
-"""
+                     """
   +---+
   |   |
   O   |
@@ -36,7 +36,7 @@ var hangmanStates = ["""
       |
 =========
 """,
-"""
+                     """
   +---+
   |   |
   O   |
@@ -45,7 +45,7 @@ var hangmanStates = ["""
       |
 =========
 """,
-"""
+                     """
   +---+
   |   |
   O   |
@@ -54,7 +54,7 @@ var hangmanStates = ["""
       |
 =========
 """,
-"""
+                     """
   +---+
   |   |
   O   |
@@ -63,7 +63,7 @@ var hangmanStates = ["""
       |
 =========
 """,
-"""
+                     """
   +---+
   |   |
   O   |
@@ -72,22 +72,19 @@ var hangmanStates = ["""
       |
 =========
 """]
-var gameContinue = "yes"
+var gameContinue = true
 let alphabet = "abcdefghijklmnopqrstuvwxyz"
 func hangman() {
-repeat {
-let underscore = "_"
-let randomWord = allTheWords.randomElement()!
-var underscoreArray = [String]()
-var characterUsed = [String]()
-let randomWordArray = Array(randomWord)
-var randomWordElements = [String]()
-var chanceNumber = 0
-var chancesLeft = 6
-
-        print("Hangman Time!")
- 
-        print(randomWord)
+    let underscore = "_"
+    let randomWord = allTheWords.randomElement()!
+    var underscoreArray = [String]()
+    var characterUsed = [String]()
+    let randomWordArray = Array(randomWord)
+    var randomWordElements = [String]()
+    var chanceNumber = 0
+    var chancesLeft = 6
+    
+    print("Hangman Time!")
     for each in randomWordArray {
         randomWordElements.append(String(each))
     }
@@ -95,7 +92,7 @@ var chancesLeft = 6
         underscoreArray.append(underscore)
     }
     
-    while chanceNumber != 6 {
+    while chanceNumber != 6 && gameContinue == true {
         print("\(hangmanStates[chanceNumber]) \nPlease enter a letter:")
         print(underscoreArray.joined())
         let userInput = readLine()!.lowercased()
@@ -125,37 +122,33 @@ var chancesLeft = 6
                 print("\(userInput) is correct. You have guessed the letters: \(characterUsed) so far")
             }
         }
-    
-    
-    if randomWord == underscoreArray.joined() {
-        print("\(hangmanStates[chancesLeft]) You win! It took \(chanceNumber) tries.")
-        print("If you would like to play again, enter yes")
-        if let userContinueChoice = readLine()?.lowercased() {
-            gameContinue = userContinueChoice
-        }
-        if gameContinue == "yes"{
-        hangman()
-        } else {
-            print("See ya later!")
-            gameContinue = "no"
-        }
-    }
         
-    if chanceNumber == 6 {
-        print(hangmanStates[chanceNumber])
-        print("The word was \(randomWord) \ngame over!")
-        print("If you would like to play again, enter yes")
-        if let userContinueChoice = readLine()?.lowercased() {
-            gameContinue = userContinueChoice
+        if randomWord == underscoreArray.joined() {
+            print("\(hangmanStates[chancesLeft]) You win! It took \(chanceNumber) tries.")
+            print("If you would like to play again, enter yes")
+            if let userContinueChoice = readLine()?.lowercased() {
+                if userContinueChoice == "yes"{
+                    hangman()
+                } else {
+                    print("See ya later!")
+                    gameContinue = false
+                }
+            }
         }
-        if gameContinue == "yes"{
-            hangman()
-        }else {
-            print("See ya later!")
-            gameContinue = "no"
+        
+        if chanceNumber == 6 {
+            print(hangmanStates[chanceNumber])
+            print("The word was \(randomWord) \ngame over!")
+            print("If you would like to play again, enter yes")
+            if let userContinueChoice = readLine()?.lowercased() {
+                if userContinueChoice == "yes"{
+                    hangman()
+                }else {
+                    print("See ya later!")
+                    gameContinue = false
+                }
+            }
         }
     }
-    }
-} while gameContinue == "yes"
 }
 hangman()
