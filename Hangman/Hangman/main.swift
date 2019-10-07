@@ -111,20 +111,19 @@ func hangman() {
             characterUsed.append(userInput)
             chancesLeft -= 1
             chanceNumber += 1
-            print("\n\(userInput) is incorrect, You have \(chancesLeft) chances left. You have guessed the letters: \(characterUsed) so far")
-            
-        }
+            print("\n\(userInput) is incorrect, You have \(chancesLeft) chances left. You have used the letters: \(characterUsed)")
+            }
         
         for letter in 0..<randomWordElements.count {
             if userInput == randomWordElements[letter] {
                 characterUsed.append(userInput)
                 underscoreArray[letter] = userInput
-                print("\(userInput) is correct. You have guessed the letters: \(characterUsed) so far")
+                print("\(userInput) is correct. You have used the letters: \(characterUsed)")
             }
         }
         
         if randomWord == underscoreArray.joined() {
-            print("\(hangmanStates[chancesLeft]) You win! It took \(chanceNumber) tries.")
+            print("\(hangmanStates[chancesLeft]) YOU WIN! It took \(chanceNumber) tries.")
             print("If you would like to play again, enter yes")
             if let userContinueChoice = readLine()?.lowercased() {
                 if userContinueChoice == "yes"{
@@ -138,7 +137,7 @@ func hangman() {
         
         if chanceNumber == 6 {
             print(hangmanStates[chanceNumber])
-            print("The word was \(randomWord) \ngame over!")
+            print("The word was \(randomWord) \nGAME OVER!")
             print("If you would like to play again, enter yes")
             if let userContinueChoice = readLine()?.lowercased() {
                 if userContinueChoice == "yes"{
