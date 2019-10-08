@@ -24,7 +24,7 @@ for _ in 1...word.count {
 
 // print(hiddenWord) // array
 print(hiddenWord.joined(separator:"")) // String
-
+var hiddenWordString: String
 
 // setting number of turns:
 
@@ -50,31 +50,37 @@ repeat { // Loop for number of turns
         counter += 1
         // print(counter)
     }
-    
-print(hiddenWord.joined(separator:""))
+         print(hiddenWord.joined(separator:""))
         
     } else {
-        print("Wrong")
+        print("Wrong") // **this is where i will add the animation of hanging.**
         wrongCount += 1
     }
     // print(alphabet)
     let letterIndex = alphabet.index(of: choice)
     //print(letterIndex)
     alphabet.remove(at: letterIndex ?? 2)
-    // print(alphabet) // Prints alphabets after chosen letters have been removed. 
+    // print(alphabet) // Prints alphabets after chosen letters have been removed.
     
     } else {
         print("Has already been chosen, try again.")
     }
-    
-} while (wrongCount < maxWrong)
 
-print("GAME OVER - YOUVE BEEN HUNG")
+    hiddenWordString = hiddenWord.joined(separator:"")
 
+} while wrongCount < maxWrong && word != hiddenWordString
+
+// END OF GAME OUTPUT: YOU WIN OR LOSE
+
+if wrongCount >= maxWrong {
+    print("GAME OVER - YOUVE BEEN HUNG")
+} else if word == (hiddenWord.joined(separator:"")) {
+    print("YAY! You win")
+}
 
 /*
  Note:
-- I have to get rid of the option once its chosen by user
+- Declare win when word is guessed completely
 
 */
 
