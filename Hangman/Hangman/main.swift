@@ -22,18 +22,21 @@ for _ in 1...word.count {
     hiddenWord.append("_")
 }
 
-print(hiddenWord) // array
+// print(hiddenWord) // array
+print(hiddenWord.joined(separator:"")) // String
+
 
 // setting number of turns:
 
-let numTurns = word.count + 2
+let maxWrong = 6
+var wrongCount = 0
 
-
-for _ in 1...numTurns { // Loop for number of turns
+repeat { // Loop for number of turns
     
     print("enter letter")
     let choice = readLine() ?? "n" // User enter letter choice
     
+    if alphabet.contains(choice) {
     var counter = 0
     
     if word.contains(choice) { // checks if word contains the letter entered
@@ -49,20 +52,30 @@ for _ in 1...numTurns { // Loop for number of turns
     }
     
 print(hiddenWord.joined(separator:""))
+        
     } else {
         print("Wrong")
-        // here is where I should increase a wrongtries variable which should be equal to 6, because once it hit 6 the player would have been hung!
+        wrongCount += 1
     }
-}
+    // print(alphabet)
+    let letterIndex = alphabet.index(of: choice)
+    //print(letterIndex)
+    alphabet.remove(at: letterIndex ?? 2)
+    // print(alphabet) // Prints alphabets after chosen letters have been removed. 
+    
+    } else {
+        print("Has already been chosen, try again.")
+    }
+    
+} while (wrongCount < maxWrong)
 
+print("GAME OVER - YOUVE BEEN HUNG")
 
 
 /*
  Note:
 - I have to get rid of the option once its chosen by user
-- Create a maskword that is the same length of the random word
-e.g. randomWord = ameni
-     hiddenWord = _____ // see how placement of this to other places would help.....
+
 */
 
 
@@ -75,4 +88,16 @@ print(Array(myName))
 /////    back into array
 var array = ["1", "2", "3"]
 print(array.joined(separator:""))
+*/
+
+/* ==============================
+var start = """
+     _____
+    |     |
+    0     |
+   /|\    |
+    |     |
+   / \   _|_
+
+"""
 */
