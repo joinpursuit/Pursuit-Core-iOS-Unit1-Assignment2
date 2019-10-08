@@ -16,26 +16,54 @@ var letter = "a"
 var charNum = word.count
 var letterGuessed = [Character]()
 
+for _ in 1...charNum {
+    print("_", terminator: " ")
+}
+print()
+var isPlaying = true
+print(word)
+
+print("guess a letter")
+
+//var guess = Character(readLine() ?? "")
+var attempts = 0
+//while attempts > 0 {
+repeat {
+    let guess = Character(readLine() ?? "")
+//    for char in word {
+        if word.contains(guess) {
+            print("is in word")
+            letterGuessed.append(guess)
+    //        attempts += 1
+        } else if word.contains(guess) == false {
+            print("Not in word")
+            attempts += 1
+        } else {
+            print("not a valid letter")
+        }
+//    }
+} while attempts < 6
+    
+//attempts -= 1
+//}
+//print(guess)
+//letterGuessed.append(guess!)
+
+//for (_, char) in guess!.enumerated() {
+//    print(char, terminator: " ")
+////    print(num)
+//}
+
+print()
+
 for char in word {
     print(char, terminator: " ")
 }
 
-print()
-
-for _ in 1...charNum {
-    print("_", terminator: " ")
-}
 
 print()
 
-print("guess a letter")
-
-var guess = readLine()
-
-
-print()
-
-for (num, char) in word.enumerated() {
+for (_, char) in word.enumerated() {
     print(char, terminator: " ")
 //    print(num)
 }
