@@ -31,6 +31,73 @@ var hiddenWordString: String
 let maxWrong = 6
 var wrongCount = 0
 
+
+// creating animation function:
+
+func animation(wrongCount: Int){
+    if wrongCount == 1 {
+        print("""
+             _____
+            |     |
+            😟    |
+                  |
+                  |
+                 _|_
+        """)
+    }
+    if wrongCount == 2 {
+        print("""
+                 _____
+                |     |
+                😓    |
+                |     |
+                |     |
+                     _|_
+            """)
+    }
+    if wrongCount == 3 {
+        print("""
+                 _____
+                |     |
+                😰    |
+              //|     |
+                |     |
+                     _|_
+            """)
+    }
+    if wrongCount == 4 {
+        print("""
+                 _____
+                |     |
+                😫    |
+              //|\\   |
+                |     |
+                     _|_
+            """)
+    }
+    if wrongCount == 5 {
+        print("""
+                 _____
+                |     |
+                😖    |
+              //|\\   |
+                |     |
+              //     _|_
+            """)
+    }
+    if wrongCount == 6 {
+        print("""
+                 _____
+                |     |
+                😵    |
+              //|\\   |
+                |     |
+              // \\  _|_
+            """)
+    }
+}
+
+
 repeat { // Loop for number of turns
     
     print("enter letter")
@@ -53,8 +120,10 @@ repeat { // Loop for number of turns
          print(hiddenWord.joined(separator:""))
         
     } else {
-        print("Wrong") // **this is where i will add the animation of hanging.**
+        print("Not Found!") // **this is where i will add the animation of hanging.**
         wrongCount += 1
+        animation(wrongCount: wrongCount)
+        
     }
     // print(alphabet)
     let letterIndex = alphabet.index(of: choice)
@@ -78,32 +147,8 @@ if wrongCount >= maxWrong {
     print("YAY! You win")
 }
 
-/*
- Note:
-- Declare win when word is guessed completely
-
-*/
 
 
 
-/*
-////   string into array
-var myName = "ameni"
-print(Array(myName))
 
-/////    back into array
-var array = ["1", "2", "3"]
-print(array.joined(separator:""))
-*/
 
-/* ==============================
-var start = """
-     _____
-    |     |
-    0     |
-   /|\    |
-    |     |
-   / \   _|_
-
-"""
-*/
