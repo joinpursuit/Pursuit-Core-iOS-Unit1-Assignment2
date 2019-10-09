@@ -63,7 +63,7 @@ func guessMan (count num: Int) -> String {
   +---+
   |   |
   O   |
- /|/  |
+ /|\\  |
       |
       |
 =========
@@ -72,7 +72,7 @@ func guessMan (count num: Int) -> String {
   +---+
   |   |
   O   |
- /|/  |
+ /|\\  |
  /    |
       |
 =========
@@ -81,23 +81,23 @@ func guessMan (count num: Int) -> String {
   +---+
   |   |
   O   |
- /|/  |
- / /  |
+ /|\\  |
+ / \\  |
       |
 =========
 """
     switch num {
-    case 5:
+    case 6:
         return (stringMan)
-    case 4:
+    case 5:
         return (stringMan1)
-    case 3:
+    case 4:
         return (stringMan2)
-    case 2:
+    case 3:
         return (stringMan3)
-    case 1:
+    case 2:
         return (stringMan4)
-    case 0:
+    case 1:
         return (stringMan5)
     default:
         return (stringMan6)
@@ -106,7 +106,7 @@ func guessMan (count num: Int) -> String {
 func Hangman () {
     let word = allTheWords.randomElement() ?? "liverwurst"
     let wordArray = Array(word)
-    let numberOfGuesses = 5
+    let numberOfGuesses = 6
     var emptyString = [String]()
     var currentNumberOfGuesses = numberOfGuesses
     var lettersUsed: Set<String> = []
@@ -120,7 +120,9 @@ func Hangman () {
         print(guessMan(count: currentNumberOfGuesses))
         print(emptyString.joined())
         print("Choose a letter, you have \(currentNumberOfGuesses) guesses remaining.       Letters used: '\(lettersUsed.sorted().joined())'")
+        
         let response = readLine()?.lowercased() ?? ""
+        
         if response.count != 1 || alphabet.contains(response) == false {
             print("Must write a single alphabet.")
             sleep(1)
@@ -138,11 +140,12 @@ func Hangman () {
                 }
             }
             lettersUsed.insert(response)
-        } else if currentNumberOfGuesses > 0 {
+        } else if currentNumberOfGuesses > 1 {
             print("Wrong answer")
             currentNumberOfGuesses -= 1
             lettersUsed.insert(response)
         } else {
+            print(guessMan(count: 7))
             print("You lost, the answer was: '\(word)'")
             winOrLose = false
             break
