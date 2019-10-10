@@ -16,34 +16,25 @@ let allTheWords = ["able", "about", "account", "acid", "across", "addition", "ad
 var reapeatGame = false
 var makeAChoice = true
 var reply = true
-let randomWord = allTheWords.randomElement() ?? ""
+var randomWord = allTheWords.randomElement() ?? ""
 var wrongLetterCounter = 0
 var condition = true
 let alphabet: Set<Character> =
     Set("abcdefghijklmnopqrstuvwxyz")
-let dashes = String(repeating: "_" ,count: randomWord.count)
+var dashes = String(repeating: "_" ,count: randomWord.count)
 let word = ""
 var array = Array(dashes)
     
 //print("Please type START to start the game.")
 print("I have a word in mind. You have 6 chances to guess it right. Enter your first letter guess 😉")
 
-    repeat {
-        startloop: repeat {
-//        print("I have a word in mind. You have 6 chances to guess it right. Enter your first letter guess 😉")
-//        let reply = readLine()?.lowercased() ?? "no"
-//        switch reply {
-//        case "start":
-//            print("I have a word in mind. You have 6 chances to guess it right. Enter your first letter guess 😉")
-//        default:
-//            print("Enter the correct input.")
-//            continue startloop
-//            }
-//
+startloop: repeat {
+    innerloop: repeat {
         print("Enter your letter guess 😉")
         print(String(array))
         let userInput = readLine() ?? "a"
-        
+      
+    
         
         if randomWord.contains(userInput) {
             print("right")
@@ -119,6 +110,7 @@ print("I have a word in mind. You have 6 chances to guess it right. Enter your f
         if wrongLetterCounter == 6 {
             print("You lost better luck next time")
             condition = false
+            
         }
   //      print("condition \(condition)")
         
@@ -135,17 +127,20 @@ print("I have a word in mind. You have 6 chances to guess it right. Enter your f
             print("yes")
             reapeatGame = true
             makeAChoice = false
-        case "no":
+            wrongLetterCounter = 0
+            randomWord = allTheWords.randomElement() ?? ""
+            dashes = String(repeating: "_" ,count: randomWord.count)
+            continue startloop
+            case "no":
             print("Goodbye")
-            makeAChoice = false
             reapeatGame = false
+            makeAChoice = true
             break
-            
         default:
-            print("enter Yes or No")
+            print("Enter Yes or No, please!")
         }
+        
     } while makeAChoice
-    
     
 } while reapeatGame
 
