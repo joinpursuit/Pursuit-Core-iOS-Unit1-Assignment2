@@ -8,14 +8,71 @@
 
 import Foundation
 
-let hangmanWords = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua", "Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Cape Verde","Cayman Islands","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cruise Ship","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kuwait","Kyrgyz Republic","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Mauritania","Mauritius","Mexico","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Namibia","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Norway","Oman","Pakistan","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa","San Marino","Satellite","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","South Africa","South Korea","Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","St. Lucia","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia","Turkey","Turkmenistan","Turks &amp; Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Venezuela","Vietnam","Virgin Islands","Yemen","Zambia","Zimbabwe"]
+let hangmanWords = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua","Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","BosniaHerzegovina","Botswana","Brazil","BritishVirginIslands","Brunei","Bulgaria","BurkinaFaso","Burundi","Cambodia","Cameroon","CapeVerde","CaymanIslands","Chad","Chile","China","Colombia","Congo","CookIslands","CostaRica","CoteDIvoire","Croatia","Cuba","Cyprus","CzechRepublic","Denmark","Djibouti","Dominica","DominicanRepublic","Ecuador","Egypt","ElSalvador","EquatorialGuinea","Estonia","Ethiopia","FalklandIslands","FaroeIslands","Fiji","Finland","France","FrenchPolynesia","FrenchWestIndies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","GuineaBissau","Guyana","Haiti","Honduras","HongKong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","IsleofMan","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kuwait","KyrgyzRepublic","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Mauritania","Mauritius","Mexico","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Namibia","Nepal","Netherlands","NetherlandsAntilles","NewCaledonia","NewZealand","Nicaragua","Niger","Nigeria","Norway","Oman","Pakistan","Palestine","Panama","PapuaNewGuinea","Paraguay","Peru","Philippines","Poland","Portugal","PuertoRico","Qatar","Reunion","Romania","Russia","Rwanda","SaintPierreamp","Miquelon","Samoa","SanMarino","Satellite","SaudiArabia","Senegal","Serbia","Seychelles","SierraLeone","Singapore","Slovakia","Slovenia","SouthAfrica","SouthKorea","Spain","SriLanka","StKittsNevis","StLucia","StVincent","StLucia","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","TimorLEste","Togo","Tonga","TrinidadTobago","Tunisia","Turkey","Turkmenistan","TurksCaicos","Uganda","Ukraine","UnitedArabEmirates","UnitedKingdom","Uruguay","Uzbekistan","Venezuela","Vietnam","VirginIslands","Yemen","Zambia","Zimbabwe"]
+
+let chance1 = """
++---+
+|   |
+O   |
+|
+|
+|
+=========
+"""
+let chance2 = """
++---+
+|   |
+O   |
+|   |
+|
+|
+=========
+"""
+let chance3 = """
++---+
+|   |
+O   |
+||   |
+|
+|
+=========
+"""
+let chance4 = """
++---+
+|   |
+O   |
+|||  |
+|
+|
+=========
+"""
+let chance5 = """
++---+
+|   |
+O   |
+|||  |
+|    |
+|
+=========
+"""
+let chance6 = """
++---+
+|   |
+O   |
+|||  |
+| |  |
+|
+=========
+"""
+
+
 
 print("Welcome to the game of hangman (countries edition). This game will test the knowledge you have for the countries around the world 🌍.")
 print()
-sleep(2)
+//sleep(1)
 print("You will have a total of 6 chances to guess the word that was randomly selected inorder to beat the game. Once you have used your 6th chance the game is end. So guess your words wisely.")
 print()
-sleep(2)
+//sleep(1)
 print("""
 
 888               888                   888888b.                     🌍🌍
@@ -31,9 +88,9 @@ print("""
                                                              "Y88P"
 """)
 print()
-sleep(1)
+//sleep(1)
 print("If you are ready to take on the challenge type \"ready\" to begin the game.")
-sleep(1)
+//sleep(1)
 
 let startGame = "ready"
 var userStart = readLine()?.lowercased().trimmingCharacters(in: .whitespaces)
@@ -51,8 +108,55 @@ repeat {
 } while userStart != startGame
 
 print()
-sleep(1)
+//sleep(1)
+
 print("Thank you for starting the game.")
+
+//sleep(1)
+
+var userGuessLetter = ""
+var repeatedInput = [String]()
+var userTries = 0
+var chosenWord = "".lowercased()
+var alphabets = "abcdefghijklmnopqrstuvwxyz"
+
+if let randomWords = hangmanWords.randomElement() {
+    chosenWord = randomWords
+}
+var arrayDashes = [Character]()
+
+for _ in chosenWord {
+    arrayDashes.append("_")
+}
+var chosenWordsArray = Array(chosenWord)
+
+print()
+print("Guess the word above by typing your letters.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
