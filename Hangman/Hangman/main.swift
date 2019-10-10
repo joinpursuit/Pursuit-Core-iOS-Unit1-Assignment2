@@ -190,16 +190,16 @@ repeat {
     print()
 
     print("""
-            ____________
-            |          |
-            |
-            |
-            |
-            |
-        ____|_______________________________________
+    +____________
+    |          |
+    |
+    |
+    |
+    |
+____|_______________________________________
 
 """)
-
+    print("Welcome to hangman.... guess a letter!!!")
     print()
     var attemptsCount = 0
 //    var correctGuessCount = 0
@@ -207,23 +207,19 @@ repeat {
 
     while attemptsCount < 6 {
         
-        
-        
-        print("guess a letter")
         for char in letterArray {
             print(char, terminator: " ")
         }
         print()
-        let guess = readLine() ?? ""
-
-//        let guess = Character(guessLetter)
+        let guessLetter = readLine() ?? ""
+        let guess = guessLetter.lowercased()
 
         if guess.count > 1 {
-            print("please enter something valid")
+            print("Please enter something valid!!!")
         }
         
         if word.contains(guess) && !letterGuessed.contains(guess) {
-            print("👍👍")
+            print("Nice Job.... 👍")
             correctGuessCount += 1
             letterGuessed.insert(guess)
             
@@ -248,80 +244,89 @@ repeat {
                 break
             }
             
-        } else if !word.contains(guess) && !letterGuessed.contains(guess) {
+        } else if !word.contains(guess) && !letterGuessed.contains(guess) && guess.count == 1 {
             print()
-            print("Not in word try again")
+//            sleep(1)
+//            print("Not in word try again")
             letterGuessed.insert(guess)
             attemptsCount += 1
             switch attemptsCount {
             case 1:
                 print("""
-            ____________
-            |          |
-            |          O
-            |
-            |
-            |
-        ____|_______________________________________
+    +____________
+    |          |
+    |          O
+    |
+    |
+    |
+____|_______________________________________
 
-        Oops, You have 5 more attempts!!
+Oops, You have 5 more attempts!!
 """)
+                print()
             case 2:
+//                sleep(1)
                 print("""
-        ________________
-            |          |
-            |          O
-            |          |
-            |
-            |
-        ____|_______________________________________
-        Oops, You have 4 more attempts!!
+    +____________
+    |          |
+    |          O
+    |          |
+    |
+    |
+____|_______________________________________
+Oops, You have 4 more attempts!!
 """)
+                print()
             case 3:
+//                sleep(1)
                 print("""
-        ________________
-            |          |
-            |          O
-            |         /|
-            |
-            |
-        ____|_______________________________________
-        Oops, You have 3 more attempts!!
+    +____________
+    |          |
+    |          O
+    |         /|
+    |
+    |
+____|_______________________________________
+Oops, You have 3 more attempts!!
 """)
             case 4:
+//                sleep(1)
                 print("""
-        ________________
-            |          |
-            |          O
-            |         /|\\
-            |
-            |
-        ____|_______________________________________
-        Oops, You have 2 more attempts!!
-        """)
+    +____________
+    |          |
+    |          O
+    |         /|\\
+    |
+    |
+____|_______________________________________
+Oops, You have 2 more attempts!!
+""")
             case 5:
+//                sleep(1)
                 print("""
-        ________________
-            |          |
-            |          O
-            |         /|\\
-            |         /
-            |
-        ____|_______________________________________
-        Oops, You have 1 more attempt!!
-        """)
+    +____________
+    |          |
+    |          O
+    |         /|\\
+    |         /
+    |
+____|_______________________________________
+Oops, You have 1 more attempt!!
+""")
             case 6:
+//                sleep(1)
                 print("""
-        ________________
-            |          |
-            |          O
-            |         /|\\
-            |         / \\
-            |
-        ____|_______________________________________
-        Oops, You're Dead!!
-        """)
+    +____________
+    |          |
+    |          O
+    |         /|\\
+    |         / \\
+    |
+____|_______________________________________
+Oops, You're Dead!!
+""")
                 print()
+                sleep(1)
                 print("Would you like to play again?")
                 let playAgain = readLine() ?? " "
                 if playAgain == "yes" {
