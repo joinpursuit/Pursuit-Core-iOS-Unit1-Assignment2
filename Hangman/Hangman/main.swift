@@ -15,27 +15,29 @@ let alphabet: Array<Character> = ["a","b", "c", "d","e", "f", "g" ,"h", "i" , "j
 var randomWord = allTheWords.randomElement() ?? "able"
 var hiddenWord: Array<Character> = Array(repeating: "_", count: randomWord.count )
 var gameState = true
-
+var emptyArr: [Character]
 
 
 print("Welcome to Hangman")
 sleep(1)
-print("Enter a character and guess the word, You have 6 guesses")
-gameLoop: while gameState == true {
+
+gameLoop: while gameState == true && chances > 0{
     var indices : Set<Int> = []
-    
-    let enteredChar = Character((readLine()?.lowercased() ?? "!"))
+    print("Enter a character, You have \(chances) guesses")
+    let enteredChar = Character((readLine()?.lowercased() ?? ""))
     for (index, char) in randomWord.enumerated() {
         if alphabet.contains(enteredChar) {
             if enteredChar == char {
                 indices.insert(index)
+               
                 
             }
             
-        } else {
+        }  else {
             print("Enter a letter")
             continue gameLoop
         }
+       
         
      
     }
@@ -43,11 +45,16 @@ gameLoop: while gameState == true {
     for (index, _) in hiddenWord.enumerated() {
              if indices.contains(index) {
                  hiddenWord[index] = enteredChar
-                 
+                
+             } else if randomWord.contains(hiddenWord.description) {
+                         print("you win")
+             
              }
-         }
+        
+   
+    }
          print(String(hiddenWord.description))
-    
+     
     
 }
 
