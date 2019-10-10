@@ -72,8 +72,31 @@ var hangmanStates = ["""
       |
 =========
 """]
+
+func binarySearch<T: Comparable>(arr: [T], target: T, range: Range<Int>? = nil) -> Bool {
+    let searchRange: Range<Int>
+    if let range = range {
+        searchRange = range
+    } else {
+        searchRange = (0..<arr.endIndex)
+    }
+    if searchRange.lowerBound >= searchRange.upperBound {
+        return false
+    }
+    let middleIndex = (searchRange.lowerBound + searchRange.upperBound) / 2
+    if target == arr[middleIndex] {
+        return true
+    } else if target < arr[middleIndex] {
+        return binarySearch(arr: arr, target: target, range: searchRange.lowerBound..<middleIndex)
+    } else {
+        return binarySearch(arr: arr, target: target, range: (middleIndex + 1)..<searchRange.upperBound)
+    }
+}
+
 var gameContinue = true
 let alphabet = "abcdefghijklmnopqrstuvwxyz"
+let alphabetArray = alphabet.map( { String($0) })
+  
 func hangman() {
     let underscore = "_"
     let randomWord = allTheWords.randomElement()!
@@ -91,12 +114,12 @@ func hangman() {
     for _ in randomWordArray {
         underscoreArray.append(underscore)
     }
-    
+
     while chanceNumber != 6 && gameContinue == true {
         print("\(hangmanStates[chanceNumber]) \nPlease enter a letter:")
         print(underscoreArray.joined())
         let userInput = readLine()!.lowercased()
-        guard userInput.count == 1 && alphabet.contains(userInput) else {
+        guard userInput.count == 1 && binarySearch(arr: alphabetArray, target: userInput) else {
             print("invalid input")
             continue
         }
