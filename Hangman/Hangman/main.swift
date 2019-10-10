@@ -16,33 +16,31 @@ let allTheWords = ["able", "about", "account", "acid", "across", "addition", "ad
 var reapeatGame = false
 var makeAChoice = true
 var reply = true
+let randomWord = allTheWords.randomElement() ?? ""
+var wrongLetterCounter = 0
+var condition = true
+let alphabet: Set<Character> =
+    Set("abcdefghijklmnopqrstuvwxyz")
+let dashes = String(repeating: "_" ,count: randomWord.count)
+let word = ""
+var array = Array(dashes)
+    
+//print("Please type START to start the game.")
+print("I have a word in mind. You have 6 chances to guess it right. Enter your first letter guess 😉")
 
-startloop: repeat {
-    print("Please type START to start the game.")
-    let reply = readLine()?.lowercased() ?? "no"
-    switch reply {
-    case "start":
-        print("I have a word in mind. You have 6 chances to guess it right. Enter your first letter guess 😉")
-    default:
-        print("Enter the correct input.")
-        continue startloop
-    }
-    
-    let randomWord = allTheWords.randomElement() ?? ""
-    var wrongLetterCounter = 0
-    
-    var condition = true
-    let alphabet: Set<Character> =
-        Set("abcdefghijklmnopqrstuvwxyz")
-    
-    let dashes = String(repeating: "_" ,count: randomWord.count)
-    let word = ""
-    
-    var array = Array(dashes)
-    
-    
     repeat {
-        
+        startloop: repeat {
+//        print("I have a word in mind. You have 6 chances to guess it right. Enter your first letter guess 😉")
+//        let reply = readLine()?.lowercased() ?? "no"
+//        switch reply {
+//        case "start":
+//            print("I have a word in mind. You have 6 chances to guess it right. Enter your first letter guess 😉")
+//        default:
+//            print("Enter the correct input.")
+//            continue startloop
+//            }
+//
+        print("Enter your letter guess 😉")
         let userInput = readLine() ?? "a"
         
         
@@ -109,10 +107,9 @@ startloop: repeat {
             print("You lost better luck next time")
             condition = false
         }
-        
+  //      print("condition \(condition)")
         
     } while condition
-    
     
     
     repeat {
@@ -138,7 +135,6 @@ startloop: repeat {
     
     
 } while reapeatGame
-
 
 print("GAME OVER")
 
