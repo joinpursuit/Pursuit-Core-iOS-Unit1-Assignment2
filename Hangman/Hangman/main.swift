@@ -64,8 +64,6 @@ let chance6 = """
 =========
 """
 
-
-
 print("Welcome to the game of hangman (countries edition). This game will test the knowledge you have for the countries around the world 🌍.")
 print()
 //sleep(1)
@@ -114,27 +112,46 @@ print("Thank you for starting the game.")
 //sleep(1)
 
 var userGuessLetter = ""
-var repeatedInput = [String]()
 var userTries = 0
 var chosenWord = "".lowercased()
+var chosenWord2 = "".lowercased()
 var alphabets = "abcdefghijklmnopqrstuvwxyz"
 
-
-if let randomWords = hangmanWords.randomElement() {
+if let randomWords = hangmanWords.randomElement()?.lowercased() {
     chosenWord = randomWords
 }
+
+print(chosenWord)
+
 var arrayDashes = [Character]()
 
 for _ in chosenWord {
     arrayDashes.append("_")
 }
+
 var chosenWordsArray = Array(chosenWord)
+var chosenWordArray2 = Array(chosenWord2)
+
 
 print()
 
 print("Guess the word above by typing your letters.")
 
 var condition = true
+var restartGame = true
+
+func restartHangman () {
+    userGuessLetter = ""
+    userTries = 0
+    chosenWord = "".lowercased()
+    alphabets = "abcdefghijklmnopqrstuvwxyz"
+    if let randomWords = hangmanWords.randomElement() {
+        chosenWord = randomWords
+    }
+    arrayDashes = Array(repeating: "_", count: chosenWord.count)
+    chosenWordsArray = Array(chosenWord)
+    condition = true
+}
 
 validloop: repeat {
     print(String(arrayDashes))
@@ -142,25 +159,40 @@ validloop: repeat {
     
     userGuessLetter = userGuess
     
-    if alphabets.contains(String(userGuessLetter.lowercased())){
+    if alphabets.contains(String(userGuessLetter.lowercased())) {
         
         if userGuessLetter.count == 1 {
             if chosenWord.contains(userGuess) {
                 for (index, char) in chosenWordsArray.enumerated() {
                     if String(char) == userGuess {
                         arrayDashes[index] = Character(userGuess)
-                    }
-                }
                 print()
                 print("right")
-            } else {
+                    } else {
+                if String(arrayDashes) == chosenWord {
+                    print("You won. Good job!")
+                }
+            }
+                }
+            }
+            else {
                 userTries += 1
                 print()
                 print("wrong you have \(6-userTries) chances left.")
                 if userTries == 6 {
                     print()
                     print("Sorry you failed. The word was \(chosenWord)")
-                    condition = false
+                    print()
+                    print("Would you like to try again? Yes or No?")
+                    let userRestart = readLine()?.lowercased()
+                    if userRestart == "yes" {
+                        restartGame = true
+                        restartHangman()
+                    } else {
+                        print()
+                        print("Have a nice day.")
+                        condition = false
+                    }
                 }
                 
                 switch userTries {
@@ -177,7 +209,8 @@ validloop: repeat {
                 case 6:
                     print(chance6)
                 default:
-                    print("where is my man?")
+                    print()
+                    print("Thank you for restarting the game. Hope you can win the game this time.")
                 }
                 
             }
@@ -185,11 +218,9 @@ validloop: repeat {
         
     } else {
         print("not a valid character")
-        
     }
     
-    
-} while condition
+} while condition && restartGame
 
 
 
