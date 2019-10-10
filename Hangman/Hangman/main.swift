@@ -21,7 +21,6 @@ var guessMax = 6
 
 var bool = true
 var randomWord: [Character] = Array(allTheWords.randomElement() ?? "Input a valid response.")
-var indices = Set<Int>()
 //SELECTED WORD
 var secretWord: [Character] = Array(repeating: "_", count: randomWord.count)
 print(secretWord)
@@ -31,30 +30,39 @@ print(randomWord)
 
 
 repeat {
+    var indices = Set<Int>() // resets here
     
+    print("Please enter a character, you have \(guessMax) guesses")
     let answer1 = readLine()?.lowercased() ?? "a"
+
+    if answer1.count != 1 {
+        print("Please enter 1 character at a time")
+        continue
+    }
+    
     let userInput = Character(answer1) //make sure to convert to character
     
+    if !randomWord.contains(userInput) {
+        guessMax -= 1
+    }
+    
+    // go through the random word and keep track of indices where
+    // entered character is
     for (index, char) in randomWord.enumerated(){
         if userInput == char {
             indices.insert(index)
-            for (index, _) in secretWord.enumerated(){
-                if indices.contains(index){
-                    secretWord[index] = userInput
-                    indices.remove(index)
-                }
-            }
         }
     }
-    if userInput != randomWord.enumerated(){
-        guessMax -= 1
-        print(guessMax)
-        //            print("wrong")
+    
+    // update secret word to indices found above
+    for (index, _) in secretWord.enumerated(){
+        if indices.contains(index){
+            secretWord[index] = userInput
+        }
     }
+    
     print(String(secretWord))
-    print(indices)
-}
-    while bool == true
+} while guessMax > 0
 
 
 //for guess in guessMax {
