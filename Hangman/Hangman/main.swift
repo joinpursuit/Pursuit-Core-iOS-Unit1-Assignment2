@@ -56,6 +56,13 @@ print("I have a word in mind. You have 6 chances to guess it right. Enter your f
             
             if String(array) == randomWord {
                 print("WIN!!!")
+                print(" _______")
+                print("|       |")
+                print("|  WIN  |")
+                print("| AWARD |")
+                print("\\     /")
+                print("  '---'")
+                print("  _|_|_")
                 condition = false
             }
             
