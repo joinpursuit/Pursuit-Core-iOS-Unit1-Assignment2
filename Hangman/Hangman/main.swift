@@ -18,19 +18,20 @@ let allTheWords = ["acid", "across", "addition", "adjustment", "advertisement", 
 
 var guessMax = 6
 
-
-var bool = true
 var randomWord: [Character] = Array(allTheWords.randomElement() ?? "Input a valid response.")
 //SELECTED WORD
 var secretWord: [Character] = Array(repeating: "_", count: randomWord.count)
 print(secretWord)
-let alphabets = Set("abscedghijklmnopqrstuvwxyz")
 //to compare answer
 print(randomWord)
+var indices = Set<Int>()
 
+func restart (){
+    
+}
 
 repeat {
-    var indices = Set<Int>() // resets here
+    indices = Set<Int>() // resets here
     
     print("Please enter a character, you have \(guessMax) guesses")
     let answer1 = readLine()?.lowercased() ?? "a"
@@ -63,6 +64,7 @@ repeat {
     
     print(String(secretWord))
 } while guessMax > 0
+
 
 
 //for guess in guessMax {
