@@ -42,7 +42,7 @@ Your word to gues is:
 }
 
 let wordsStartingFromA = ["able"]
-    
+
 //    , "about", "account", "acid", "across", "addition", "adjustment", "advertisement", "after", "again", "against", "agreement", "almost", "among", "amount", "amusement", "angle", "angry", "animal", "answer", "apparatus", "apple", "approval", "arch", "argument", "army", "attack", "attempt", "attention", "attraction", "authority", "automatic", "awake"]
 
 let randomWord = Array(wordsStartingFromA.randomElement() ?? "animal")
@@ -58,16 +58,21 @@ var enteredChar: Character//(readLine()?.lowercased() ?? "") // Here is a fatal 
 
 let alphabets: Set<Character> = Set("abcdefghijklmnopqrstuvwxyz")
 
-repeat {
+startloop: repeat {
     print("Enter just 1 character from \"a-z\"")
     enteredChar = Character(readLine()?.lowercased() ?? "")
     var indices: Set<Int> = []
-
+    
+    if !randomWord.contains(enteredChar) {
+        print("The word does not contain such letter. Try again.")
+        guessMax -= 1
+        continue startloop
+    }
+    
     for (index, char) in randomWord.enumerated() {
         if enteredChar == char {
             indices.insert(index)
         }
-        // update hiddenWord
     }
     
     for (index, _) in hiddenWord.enumerated() {
@@ -76,7 +81,6 @@ repeat {
         }
     }
     print(String(hiddenWord))
-    guessMax -= 1
-} while guessMax > 0
+} while guessMax > 0 && randomWord != hiddenWord
 
 
