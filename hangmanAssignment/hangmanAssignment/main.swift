@@ -110,6 +110,7 @@ func Hangman () {
     var emptyString = [String]()
     var currentNumberOfGuesses = numberOfGuesses
     var lettersUsed: Set<String> = []
+    winOrLose = true
     guessCount = 0
     
     for _ in word {
