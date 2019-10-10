@@ -16,52 +16,51 @@ let chance1 = """
 O   |
 |
 |
-|
-=========
+=====
 """
 let chance2 = """
-+---+
-|   |
-O   |
-|   |
-|
-|
-=========
+ +---+
+ |   |
+ O   |
+ ||  |
+ |   |
+     |
+ =========
 """
 let chance3 = """
-+---+
-|   |
-O   |
-||   |
-|
-|
+ +---+
+ |   |
+ O   |
+|||  |
+ |   |
+     |
 =========
 """
 let chance4 = """
 +---+
-|   |
-O   |
+ |   |
+ O   |
 |||  |
-|
-|
+ |   |
+|    |
 =========
 """
 let chance5 = """
 +---+
-|   |
-O   |
+ |   |
+ O   |
 |||  |
-|    |
-|
+ |   |
+| |  |
 =========
 """
 let chance6 = """
 +---+
-|   |
-O   |
+ |   |
+ X   |
 |||  |
+ |   |
 | |  |
-|
 =========
 """
 
@@ -120,6 +119,7 @@ var userTries = 0
 var chosenWord = "".lowercased()
 var alphabets = "abcdefghijklmnopqrstuvwxyz"
 
+
 if let randomWords = hangmanWords.randomElement() {
     chosenWord = randomWords
 }
@@ -131,7 +131,65 @@ for _ in chosenWord {
 var chosenWordsArray = Array(chosenWord)
 
 print()
+
 print("Guess the word above by typing your letters.")
+
+var condition = true
+
+validloop: repeat {
+    print(String(arrayDashes))
+    let userGuess = readLine() ?? "d"
+    
+    userGuessLetter = userGuess
+    
+    if alphabets.contains(String(userGuessLetter.lowercased())){
+        
+        if userGuessLetter.count == 1 {
+            if chosenWord.contains(userGuess) {
+                for (index, char) in chosenWordsArray.enumerated() {
+                    if String(char) == userGuess {
+                        arrayDashes[index] = Character(userGuess)
+                    }
+                }
+                print()
+                print("right")
+            } else {
+                userTries += 1
+                print()
+                print("wrong you have \(6-userTries) chances left.")
+                if userTries == 6 {
+                    print()
+                    print("Sorry you failed. The word was \(chosenWord)")
+                    condition = false
+                }
+                
+                switch userTries {
+                case 1:
+                    print(chance1)
+                case 2:
+                    print(chance2)
+                case 3:
+                    print(chance3)
+                case 4:
+                    print(chance4)
+                case 5:
+                    print(chance5)
+                case 6:
+                    print(chance6)
+                default:
+                    print("where is my man?")
+                }
+                
+            }
+        }
+        
+    } else {
+        print("not a valid character")
+        
+    }
+    
+    
+} while condition
 
 
 
