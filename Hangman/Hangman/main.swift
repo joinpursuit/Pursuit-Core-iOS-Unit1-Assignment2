@@ -22,19 +22,18 @@ var condition = true
 let alphabet: Set<Character> =
     Set("abcdefghijklmnopqrstuvwxyz")
 var dashes = String(repeating: "_" ,count: randomWord.count)
-let word = ""
+var word = ""
 var array = Array(dashes)
-    
-//print("Please type START to start the game.")
+
 print("I have a word in mind. You have 6 chances to guess it right. Enter your first letter guess 😉")
 
 startloop: repeat {
     innerloop: repeat {
         print("Enter your letter guess 😉")
         print(String(array))
-        let userInput = readLine() ?? "a"
-      
-    
+        var userInput = readLine() ?? "a"
+        
+        
         
         if randomWord.contains(userInput) {
             print("right")
@@ -64,7 +63,7 @@ startloop: repeat {
             print("Wrong guess")
             print(String(array))
             print(wrongLetterCounter)
-  
+            
             if wrongLetterCounter == 1 {
                 print("__________")
                 print("|        |")
@@ -112,7 +111,7 @@ startloop: repeat {
             condition = false
             
         }
-  //      print("condition \(condition)")
+        //      print("condition \(condition)")
         
     } while condition
     
@@ -120,7 +119,7 @@ startloop: repeat {
     repeat {
         print("Want to play again? Type Yes or No")
         
-        let answer = readLine()?.lowercased() ?? "no"
+        let answer = readLine()?.lowercased() ?? "J"
         
         switch answer {
         case "yes":
@@ -129,13 +128,14 @@ startloop: repeat {
             makeAChoice = false
             wrongLetterCounter = 0
             randomWord = allTheWords.randomElement() ?? ""
+            //dashes = ""
             dashes = String(repeating: "_" ,count: randomWord.count)
-            continue startloop
-            case "no":
+            //continue startloop
+        case "no":
             print("Goodbye")
             reapeatGame = false
-            makeAChoice = true
-            break
+            makeAChoice = false
+           // break
         default:
             print("Enter Yes or No, please!")
         }
