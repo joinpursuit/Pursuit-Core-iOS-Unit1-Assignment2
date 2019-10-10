@@ -56,7 +56,7 @@ func animation(wrongCount: Int){
                  _____
                 |     |
                 😰    |
-              //|     |
+               /|     |
                 |     |
                      _|_
          You have 3 tries remaining
@@ -67,7 +67,7 @@ func animation(wrongCount: Int){
                  _____
                 |     |
                 😫    |
-              //|\\   |
+               /|\\    |
                 |     |
                      _|_
         You have 2 tries remaining
@@ -78,9 +78,9 @@ func animation(wrongCount: Int){
                  _____
                 |     |
                 😖    |
-              //|\\   |
+               /|\\    |
                 |     |
-              //     _|_
+               /     _|_
         You have 1 try remaining
 """)
     }
@@ -89,9 +89,9 @@ func animation(wrongCount: Int){
                  _____
                 |     |
                 😵    |
-              //|\\   |
+               /|\\    |
                 |     |
-              // \\  _|_
+               / \\   _|_
             """)
     }
 }
@@ -112,7 +112,6 @@ var selectedLetters: [String] = []
 
 let maxWrong = 6
 var wrongCount = 0
-var guessCount = 0
 var playAgain: String = ""
 
 // Game starts:
@@ -139,66 +138,73 @@ print("The Word: \(hiddenWord.joined(separator:""))")
 
 // Loop for number of turns:
     
-repeat {
-    print(); sleep(1)
-    print("Enter a letter")
-    let choice = readLine()?.lowercased() ?? "n" // User enter letter choice
+    repeat {
+        print();
+        print("Enter a letter")
+        let choice = readLine()?.lowercased() ?? "n" // User enter letter choice
+        
+        if choice.count != 1 {
+            print("Please enter one letter at a time.")
+        } else {
+
 //====== maybe add another if statment that checks if the value is a single letter else have them try again? because when i enter 2 letter it says already entered ======//
-    
-    if alphabet.contains(choice) {
-    var spotCounter = 0
-    
-    if word.contains(choice) { // checks if word contains the letter entered
-        sleep(1); print()
-        print("Found!")
-        sleep(1)
-        animation(wrongCount: wrongCount)
-        
-    for char in word { // loops through the word
-       
-        if choice == String(char) { // checks if user letter is = to char in word
-           hiddenWord[spotCounter] = choice
+            
+            if alphabet.contains(choice) {
+                var spotCounter = 0
+                
+                if word.contains(choice) { // checks if word contains the letter entered
+                    sleep(1); print()
+                    print("Found!")
+                    sleep(1)
+                    animation(wrongCount: wrongCount)
+                    
+                    for char in word { // loops through the word
+                        
+                        if choice == String(char) { // checks if user letter is = to char in word
+                            hiddenWord[spotCounter] = choice
+                        }
+                        spotCounter += 1
+                    }
+                    
+                } else {
+                    print(); sleep(1)
+                    print("Not Found!")
+                    print(); sleep(1)
+                    wrongCount += 1
+                    animation(wrongCount: wrongCount)
+                    print(); sleep(1)
+                    
+                }
+                // Add choice to the already chosen array and print it
+                selectedLetters.append(choice)
+                // print already selected letter joined with " "
+                print("Word: \(hiddenWord.joined(separator:""))       Entered Letters: \(selectedLetters.joined(separator:" "))")
+                
+                // Remove letter from alphabat once chosen:
+                
+                let letterIndex = alphabet.firstIndex(of: choice)
+                alphabet.remove(at: letterIndex ?? 2)
+                // print(alphabet) // Prints alphabets after chosen letters have been removed.
+                
+            } else {
+                print("Has already been chosen, try again.")
+            }
+            
+           // hiddenWordString = hiddenWord.joined(separator:"")
         }
-        spotCounter += 1
-    }
-        
-    } else {
-        print(); sleep(1)
-        print("Not Found!")
-        print(); sleep(1)
-        wrongCount += 1
-        animation(wrongCount: wrongCount)
-        print(); sleep(1)
-        
-    }
-    // Add choice to the already chosen array and print it
-        selectedLetters.append(choice)
-    // print already selected letter joined with " "
-        print("\(hiddenWord.joined(separator:""))       Entered Letters: \(selectedLetters.joined(separator:" "))")
-        
-    // Remove letter from alphabat once chosen:
-        
-    let letterIndex = alphabet.index(of: choice)
-    alphabet.remove(at: letterIndex ?? 2)
-    // print(alphabet) // Prints alphabets after chosen letters have been removed.
-    guessCount += 1
+        hiddenWordString = hiddenWord.joined(separator:"")
 
-    } else {
-        print("Has already been chosen, try again.")
-    }
-
-    hiddenWordString = hiddenWord.joined(separator:"")
-
-} while wrongCount < maxWrong && word != hiddenWordString
+    } while wrongCount < maxWrong && word != hiddenWordString
 
 // END OF GAME OUTPUT: YOU WIN OR LOSE
 
 if wrongCount >= maxWrong {
-    print("GAME OVER - YOUVE BEEN HUNG")
+    print()
+    print("GAME OVER - YOUVE BEEN HUNG 😵")
     print("The correct word was: \(word)")
 } else if word == (hiddenWord.joined(separator:"")) {
     print(); sleep(1)
-    print("YAY! You win, it took \(selectedLetters.count) tries ") //\(guessCount)
+    print("YAY! You win 👏🏽 👏🏽 👏🏽, it took \(selectedLetters.count) tries ") //\(guessCount)
 }
     print()
  
@@ -206,8 +212,8 @@ if wrongCount >= maxWrong {
     playAgain = readLine()?.lowercased() ?? "no"
     
  } while playAgain == "yes"
-
-
+print(); sleep(1)
+print("Thanks for playing. 👋🏽")
 
 
 
