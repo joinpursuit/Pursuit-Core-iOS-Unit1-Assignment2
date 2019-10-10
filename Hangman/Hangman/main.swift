@@ -39,18 +39,6 @@ var counter = 0
 
 // array
 
-
-//
-//  main.swift
-//  project practice
-//
-//  Created by Adam Diaz on 10/10/19.
-//  Copyright © 2019 Adam Diaz. All rights reserved.
-//
-
-import Foundation
-
-
 print("Hangmaniana")
 
 var bool = true
