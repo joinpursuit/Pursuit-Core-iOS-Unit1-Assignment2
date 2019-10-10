@@ -107,16 +107,12 @@ func Hangman () {
     let word = allTheWords.randomElement() ?? "liverwurst"
     let wordArray = Array(word)
     let numberOfGuesses = 6
-    var emptyString = [String]()
+    var emptyString = Array(repeating: "_", count: word.count)
     var currentNumberOfGuesses = numberOfGuesses
     var lettersUsed: Set<String> = []
     winOrLose = true
     guessCount = 0
-    
-    for _ in word {
-        emptyString.append("_")
-    }
-    
+
     while emptyString.contains("_") {
         print(guessMan(count: currentNumberOfGuesses))
         print(emptyString.joined())
