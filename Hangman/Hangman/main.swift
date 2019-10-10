@@ -21,16 +21,15 @@ var wrongLetterCounter = 0
 var condition = true
 let alphabet: Set<Character> =
     Set("abcdefghijklmnopqrstuvwxyz")
-var dashes = String(repeating: "_" ,count: randomWord.count)
+var dashes: [Character] = Array(repeating: "_" ,count: randomWord.count)
 var word = ""
-var array = Array(dashes)
 
 print("I have a word in mind. You have 6 chances to guess it right. Enter your first letter guess 😉")
 
 startloop: repeat {
     innerloop: repeat {
-        print("Enter your letter guess 😉")
-        print(String(array))
+        print("Enter your letter guess 😉 \(String(randomWord))")
+        print(String(dashes))
         var userInput = readLine() ?? "a"
         
         
@@ -39,12 +38,12 @@ startloop: repeat {
             print("right")
             for (index,char) in randomWord.enumerated() {
                 if userInput == String(char){
-                    array[index] = Character(userInput)
-                    print(String(array))
+                    dashes[index] = Character(userInput)
+                    print(String(dashes))
                 }
             }
             
-            if String(array) == randomWord {
+            if String(dashes) == randomWord {
                 print("WIN!!!")
                 print(" _______")
                 print("|       |")
@@ -61,7 +60,7 @@ startloop: repeat {
             wrongLetterCounter += 1
             
             print("Wrong guess")
-            print(String(array))
+            print(String(dashes))
             print(wrongLetterCounter)
             
             if wrongLetterCounter == 1 {
@@ -128,9 +127,9 @@ startloop: repeat {
             makeAChoice = false
             wrongLetterCounter = 0
             randomWord = allTheWords.randomElement() ?? ""
-            //dashes = ""
-            dashes = String(repeating: "_" ,count: randomWord.count)
-            //continue startloop
+            dashes = Array(repeating: "_" ,count: randomWord.count)
+            
+            continue startloop
         case "no":
             print("Goodbye")
             reapeatGame = false
