@@ -13,11 +13,14 @@ let allTheWords = ["able", "about", "account", "acid", "across", "addition", "ad
 
 
 
-var randomWord = allTheWords.randomElement() ?? "nope" // 
-var hiddenWord = ("")
-var arrayWord = [Character]()
-var tries = 6
-var indeces = [Int]()
+var randomWord = allTheWords.randomElement() ?? "nope" // Turns the array of words into a random word. Unwraps the String Optional into a String using nil-coalescing.
+
+var hiddenWord = ("") // Decleares an empty String.
+
+var arrayWord = [Character]() // Decleares an emty array of Characters.
+
+var tries = 7 // ??
+var indeces = [Int]() // ??
 
 print(randomWord)
 
@@ -36,10 +39,10 @@ for _ in randomWord {
 
 var repeatCondition = true
 var wrongAttempts = 0
-var wrongTry = 6
+var wrongTry = 7
 
 
-print(hiddenWord)
+//print(hiddenWord)
 print("Guess a letter")
 
 
@@ -49,7 +52,7 @@ print("Guess a letter")
 loop: repeat {
 
         for char in arrayWord {
-            print(char, terminator: "")
+            print(char, terminator: " ")
             
         }
     
@@ -66,9 +69,97 @@ loop: repeat {
             
             
         }
+        if !arrayWord.contains("_") {
+            print("You Win")
+        }
     } else {
-        print("you entered \(userInput) try again")
+        print("Wrong. You entered \(userInput). Try a different word.")
         wrongTry -= 1
+        switch wrongTry {
+            
+        case 0:
+            print("""
+                +------+
+                   |   |
+                   O   |
+                  /|\\  |
+                  / \\  |
+                       |
+                 =========
+                """)
+            
+        case 1:
+            print("""
+    +----+
+     |   |
+     O   |
+    /|\\  |
+    /    |
+         |
+   =========
+""")
+        case 2:
+            print("""
+  +-----+
+    |   |
+    O   |
+   /|\\  |
+        |
+        |
+  =========
+""")
+        case 3:
+            print("""
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========
+""")
+        case 4:
+            print("""
+   +---+
+   |   |
+   O   |
+   |   |
+       |
+       |
+ =========
+""")
+        case 5:
+            print("""
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========
+""")
+        case 6:
+            print("""
+      +---+
+      |   |
+          |
+          |
+          |
+          |
+    =========
+""")
+        case 7: print("""
++---+
+      |
+      |
+      |
+      |
+      |
+=========
+""")
+        default:
+            print("Error")
+        }
         print("You have \(wrongTry) guesses left")
         if wrongTry == wrongAttempts {
             repeatCondition = false
@@ -82,4 +173,5 @@ loop: repeat {
 } while repeatCondition
 
 
-print("The end")
+print("Game Over")
+
