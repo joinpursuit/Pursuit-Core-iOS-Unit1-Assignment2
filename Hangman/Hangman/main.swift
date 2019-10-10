@@ -146,7 +146,7 @@ func hangman() {
         }
         
         if randomWord == underscoreArray.joined() {
-            print("\(hangmanStates[chancesLeft]) YOU WIN! It took \(chanceNumber) tries.")
+            print("\(hangmanStates[chanceNumber]) YOU WIN! It took \(chanceNumber) tries.")
             print("If you would like to play again, enter yes")
             if let userContinueChoice = readLine()?.lowercased() {
                 if userContinueChoice == "yes"{
