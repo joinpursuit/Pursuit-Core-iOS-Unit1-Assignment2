@@ -12,45 +12,101 @@ let allTheWords = ["able", "about", "account", "acid", "across", "addition", "ad
 
 var randomWord = allTheWords.randomElement()
 var word = randomWord ?? ""
-var letter = "a"
+//var letter = "a"
 var charNum = word.count
 var letterGuessed = Set<Character>()
+var letterArray = [Character]()
+//var underscores = String(repeatElement(repeating: "_", count: word.count)
 
-for _ in 1...charNum {
-    print("_", terminator: " ")
-}
+//for _ in 1...charNum {
+//    print("_", terminator: " ")
+//}
 print()
+
 for char in word {
     print(char, terminator: " ")
+    letterArray.append("_")
 }
-var isPlaying = true
-//print(word)
+let underScored = String(letterArray)
+print()
+
+//for (index, char) in word.enumerated() {
+//    letterArray[index] = guess
+//}
+
 print()
 //var guess = Character(readLine() ?? "")
 var attempts = 0
 //var newWord = word.replacingOccurrences(of: "i", with: "+")
-var newWord = word.replacingCharacters(in: word.startIndex..<word.endIndex, with: "_")
 
-print(newWord)
 repeat {
-    print("\nguess a letter")
+    print("guess a letter")
 //    print(word.replacingOccurrences(of: word, with: "_"))
-    print(newWord)
+    for char in letterArray {
+        print(char, terminator: " ")
+    }
+    print()
     let guess = Character(readLine() ?? " ")
-
-        if letterGuessed.contains(guess) {
-            print("you've already tried that")
-        } else if word.contains(guess) && !letterGuessed.contains(guess) {
-            print("is in word")
-            letterGuessed.insert(guess)
-    //        attempts += 1
-        } else if !word.contains(guess) && !letterGuessed.contains(guess) {
-            print("Not in word try again")
-            letterGuessed.insert(guess)
-            attempts += 1
-        } else {
-            print("not a valid letter")
+    letterGuessed.insert(guess)
+    
+    for (index, char) in word.enumerated() {
+        
+        if char == guess {
+            
+            letterArray[index] = char
+//            print("is in word")
         }
+    }
+    
+    if !word.contains(guess) && !letterGuessed.contains(guess) {
+                print("Not in word try again")
+                letterGuessed.insert(guess)
+                attempts += 1
+    }
+    //        if letterGuessed.contains(guess) {
+    //            print("you've already tried that")
+    //
+    //        } else if word.contains(guess) {//&& !letterGuessed.contains(guess)
+    //            print("is in word")
+    //            letterArray[index] = guess
+    //            letterGuessed.insert(guess)
+    //            //            for (index, char) in word.enumerated() {
+    //            //                letterArray[index] = guess
+    //            //            }
+    //
+    //        } else if !word.contains(guess) && !letterGuessed.contains(guess) {
+    //            print("Not in word try again")
+    //            letterGuessed.insert(guess)
+    //            attempts += 1
+    //
+    //        } else {
+    //            print("not a valid letter")
+    //        }
+    
+    
+//        } else if letterGuessed.contains(guess) {
+//            print("you've already tried that")
+//
+//        }
+
+    
+//    switch attempts {
+//    case 1:
+//        print("attempt 1")
+//    case 2:
+//        print("attempt 2")
+//    case 3:
+//        print("attempt 3")
+//    case 4:
+//        print("attempt 4")
+//    case 5:
+//        print("attempt 5")
+//    case 6:
+//        print("attempt 6")
+//    case 7:
+//        print("7")
+//    default:
+//        print("???????")
 //    }
 } while attempts < 6
     
@@ -62,13 +118,15 @@ print()
 //}
 
 
-print()
+//for (_, char) in word.enumerated() {
+//    switch word.contains(char) {
+//    case word.contains(char) == true:
+//        print("in word")
+//    case word.contains(char) == false:
+//        print("not in word")
+//    default:
+//        print("not valid")
+//}
+//    print(char, terminator: " ")
+//}
 
-for (_, char) in word.enumerated() {
-    print(char, terminator: " ")
-//    print(num)
-}
-print()
-if word.contains(letter) {
-    print(word)
-}
