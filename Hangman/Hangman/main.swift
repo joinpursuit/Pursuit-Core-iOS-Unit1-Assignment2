@@ -47,21 +47,43 @@ repeat {
     }
     print()
     let guess = Character(readLine() ?? " ")
+
     letterGuessed.insert(guess)
     
-    for (index, char) in word.enumerated() {
-        
-        if char == guess {
+    if word.contains(guess) {
+        for (index, char) in word.enumerated() {
             
-            letterArray[index] = char
-//            print("is in word")
+            if char == guess {
+                
+                letterArray[index] = char
+            }
         }
-    }
-    
-    if !word.contains(guess) && !letterGuessed.contains(guess) {
-                print("Not in word try again")
-                letterGuessed.insert(guess)
-                attempts += 1
+    } else if !word.contains(guess) {
+        print()
+        print("Not in word try again")
+        letterGuessed.insert(guess)
+        attempts += 1
+        switch attempts {
+        case 1:
+            print("attempt 1")
+            
+        case 2:
+            print("attempt 2")
+        case 3:
+            print("attempt 3")
+        case 4:
+            print("attempt 4")
+        case 5:
+            print("attempt 5")
+        case 6:
+            print("attempt 6")
+        case 7:
+            print("7")
+        default:
+            print("???????")
+        }
+    } else {
+        print("please enter a valid letter")
     }
     //        if letterGuessed.contains(guess) {
     //            print("you've already tried that")
@@ -112,21 +134,4 @@ repeat {
     
 print(letterGuessed)
 print()
-
-//for char in word {
-//    print(char, terminator: " ")
-//}
-
-
-//for (_, char) in word.enumerated() {
-//    switch word.contains(char) {
-//    case word.contains(char) == true:
-//        print("in word")
-//    case word.contains(char) == false:
-//        print("not in word")
-//    default:
-//        print("not valid")
-//}
-//    print(char, terminator: " ")
-//}
 
