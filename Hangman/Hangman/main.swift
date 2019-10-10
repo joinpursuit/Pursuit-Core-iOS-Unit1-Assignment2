@@ -41,6 +41,7 @@ print("I have a word in mind. You have 6 chances to guess it right. Enter your f
 //            }
 //
         print("Enter your letter guess 😉")
+        print(String(array))
         let userInput = readLine() ?? "a"
         
         
@@ -65,27 +66,31 @@ print("I have a word in mind. You have 6 chances to guess it right. Enter your f
             print("Wrong guess")
             print(String(array))
             print(wrongLetterCounter)
-            
+  
             if wrongLetterCounter == 1 {
                 print("__________")
                 print("|        |")
                 print("|        0")
+                print("Strike 1. You have 5 guesses left.")
             } else if wrongLetterCounter == 2 {
                 print("__________")
                 print("|        |")
                 print("|        0")
                 print("|        |")
+                print("Strike 2. You have 4 guesses left.")
             } else if wrongLetterCounter == 3 {
                 print("__________")
                 print("|        |")
                 print("|        0")
                 print("|        |\\")
+                print("Strike 3. You have 3 guesses left.")
             }
             if wrongLetterCounter == 4 {
                 print("__________")
                 print("|        |")
                 print("|        0")
                 print("|       /|\\")
+                print("Strike 4. You have 2 guesses left.")
             }
             if wrongLetterCounter == 5 {
                 print("__________")
@@ -93,6 +98,7 @@ print("I have a word in mind. You have 6 chances to guess it right. Enter your f
                 print("|        0")
                 print("|       /|\\")
                 print("|         \\")
+                print("Strike 5. You have 1 FINAL!!! guess left.")
             }
             if wrongLetterCounter == 6 {
                 print("__________")
