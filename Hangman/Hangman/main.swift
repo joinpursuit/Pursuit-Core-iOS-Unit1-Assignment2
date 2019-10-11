@@ -14,122 +14,160 @@ let allTheWords = ["able", "about", "account", "acid", "across", "addition", "ad
 //         HangMan ASCii art
 //==============================================================================
 let hangManFinal = """
- |------
- |/    |
- |     0
- |    /|\
- |    /\
+|------
+|/    |
+|     0
+|    /|\
+|    /\
 =========
 """
 
 let hangManEmpty = """
- |------
- |/    |
- |
- |
- |
+|------
+|/    |
+|
+|
+|
 =========
 """
 
 let hangMan1 = """
- |------
- |/    |
- |     0
- |
- |
+|------
+|/    |
+|     0
+|
+|
 =========
 """
 
 let hangMan2 = """
-  |------
-  |/    |
-  |     0
-  |     |
-  |
- =========
+|------
+|/    |
+|     0
+|     |
+|
+=========
 """
 let hangMan3 = """
- |------
- |/    |
- |     0
- |    /|
- |
+|------
+|/    |
+|     0
+|    /|
+|
 =========
 """
 let hangMan4 = """
- |------
- |/    |
- |     0
- |    /|\
- |
+|------
+|/    |
+|     0
+|    /|\
+|
 =========
 """
 let hangMan5 = """
- |------
- |/    |
- |     0
- |    /|\
- |    /
+|------
+|/    |
+|     0
+|    /|\
+|    /
 =========
 """
 let hangMan6 = """
- |------
- |/    |
- |     0
- |    /|\
- |    /\
+|------
+|/    |
+|     0
+|    /|\
+|    /\
 =========
 """
-//============================================================================
-// Oscars code
-//============================
-/*
-var randomWord = (allTheWords.randomElement() ?? "nope") //door
-var arrayWord = [String]()
-var tries = 6
-print(randomWord)
-var hiddenWord = ""
-//var hiddenWordArray = Array(hiddenWord)
-for i in randomWord {
-   hiddenWord += "_"
-   arrayWord.append("\(i)")
-}
-print(hiddenWord)
-*/
-//============================================================================
-//                             Hangman Variables
-//============================================================================
 
-//Not important for now
-//var wins = Int()
-//var losses = Int()
+//============================================================================================================
 
 
-var randomWord = allTheWords.randomElement() ?? "ERROR"
-var hiddenWord = Array(String(repeating: "_", count: randomWord.count))
-let revealWord = String(hiddenWord)
-//print("reveal word \(revealWord)")
+var randomWord = allTheWords.randomElement()?.lowercased() ?? "ERROR" // Pulls a random word from the array
 
-var arrayFromRandomWord = [String]()
-var arrayChars = [String]()
-// var playerGuess = readLine() ?? ""
-var lettersGuessed = ""
+var underscoresFromRandomWord:[Character] = Array(String(repeating: "_", count: randomWord.count)) // Turns the random word into underscores in an array
 
-//============================================================================
-//                                     Loops
-//============================================================================
+var hiddenWord = String(underscoresFromRandomWord) // turns the array of underscores into a string, for the player to see
 
-//print("hidden word is \(hiddenWord)")
-
-// for loop replacing characters in randomWord with underscores
-//for i in randomWord {
-//    hiddenWord += "_"
-//    arrayChars.append("\(i)")
-//}
+//print(underscoresFromRandomWord)
 //print(hiddenWord)
-//print(randomWord)
-//print(arrayChars)
-//============================================================================
+//print(randomWords)
+
+var maxGuesses = 5 // Sets the maximum amount of guesses to 6
+var guessCounter = 0 // Starts a counter for how many attempts the player has made
+var lettersGuessed = "" // Starts a blank string(Should this be an array?) to keep track of the letters guessed
+var repeatCondition = true // Set the while loop
+var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+var indices = [Int]()
+//================================
+
+
+print("Welcome to Hangman!")
+sleep(3)
+print("Your goal is to guess the word before you hang the man. Are you up to the challenge?")
+
+print(hangManEmpty)
+print("Guess a letter to begin")
+
+repeat {
+    let userInput = readLine()?.lowercased() ?? "" // user Input readLine
+    print(hiddenWord) // take out when done
+    
+    if userInput.count > 1 || !alphabet.contains(userInput) { // If user enters more than 1 character or anything else - reject
+        print("You have entered an incorrect value, please try again.")
+        continue
+    }
+    
+    if randomWord.contains(userInput) { // takes user input, if correct appends index key to indices var
+        print("You made a correct guess!")
+        for (index, char) in randomWord.enumerated() {
+            if userInput.contains(char) {
+                indices.append(index)
+            }
+        }
+        for (index, _) in underscoresFromRandomWord.enumerated() { // replaces respective index value (provided indices) with userinput
+            if indices.contains(index) {
+                underscoresFromRandomWord[index] = Character(userInput)
+            }
+        }
+        indices.removeAll()
+        print(String(underscoresFromRandomWord)) // Prints string from the array of characters
+    }
+
+    if !randomWord.contains(userInput) {
+        print("This word does not contain that character, try again")
+        guessCounter += 1
+        lettersGuessed.append(userInput)
+        print("Incorrect guesses: \(lettersGuessed)")
+    }
+    if guessCounter > maxGuesses {
+        repeatCondition = false
+        print("You stink loser!")
+    }
+    if guessCounter == 0 {
+        print(hangManEmpty)
+    }
+    if guessCounter == 1 {
+    print(hangMan1)
+    }
+    if guessCounter == 2 {
+        print(hangMan2)
+    }
+    if guessCounter == 3 {
+        print(hangMan3)
+    }
+    if guessCounter == 4 {
+    print(hangMan4)
+    }
+    if guessCounter == 5 {
+    print(hangMan5)
+    }
+    if guessCounter > 5 {
+    print(hangManFinal)
+        }
+} while repeatCondition
+
 
 
 
@@ -141,22 +179,14 @@ var lettersGuessed = ""
 //==============================================================================
 
 //Intro commented out for now
-/*
+
 print("Welcome to Hangman!")
 sleep(3)
 print("Your goal is to guess the word before you hang the man. Are you up to the challenge?")
 
 print(hangManEmpty)
 print("Guess a letter to begin")
-*/
 
-//print(playerGuess.lowercased())
-//print(readLine() ?? "")
 
-// print(randomWord ?? "hangman") verifying random word worked
 
-//for word in randomWord? {
-//    if randomWord.count > 0 {
-//    }
-//}
 
