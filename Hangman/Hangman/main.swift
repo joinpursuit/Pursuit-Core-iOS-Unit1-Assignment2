@@ -10,6 +10,7 @@ import Foundation
 
 print("""
 💀 Welcome to HANGMAN! 💀
+
 I have chosen a word for you.
 You have 6 guesses to type in the correct answer.
 """)
@@ -27,13 +28,21 @@ print(randomWord)
 var indices = Set<Int>()
 
 func restart (){
-    
+    indices = Set<Int>()
+    print("Please enter a character, you have \(guessMax) guesses")
+    let answer1 = readLine()?.lowercased() ?? "a"
+    if answer1.count != 1 {
+        print("Please enter 1 character at a time")
+        guessMax = 6
+        randomWord = Array(allTheWords.randomElement() ?? "Input a valid response.")
+        secretWord = Array(repeating: "_", count: randomWord.count)
+        
+}
 }
 
 repeat {
     indices = Set<Int>() // resets here
-    
-    print("Please enter a character, you have \(guessMax) guesses")
+//    print("Please enter a character, you have \(guessMax) guesses")
     let answer1 = readLine()?.lowercased() ?? "a"
 
     if answer1.count != 1 {
@@ -42,11 +51,25 @@ repeat {
     }
     
     let userInput = Character(answer1) //make sure to convert to character
-    
+    if secretWord == randomWord {
+        print("You win! The word was \(randomWord)")
+        print("Would you like to play again? Type in 'yes' or 'no.'")
+        let replayGame = readLine()?.lowercased()
+        if replayGame == "yes" {
+            restart()
+        } else {
+            print("Thank you for playing!")
+        }
+    }
     if !randomWord.contains(userInput) {
         guessMax -= 1
+print("Please enter a character, you have \(guessMax) guesses")
+        if guessMax == 0 {
+            print("""
+You LOSE!!!!! 🙁
+""")
+        }
     }
-    
     // go through the random word and keep track of indices where
     // entered character is
     for (index, char) in randomWord.enumerated(){
@@ -65,20 +88,4 @@ repeat {
     print(String(secretWord))
 } while guessMax > 0
 
-
-
-//for guess in guessMax {
-//    guessMax -= 1
-//    }
-//}
-
-//this is in the repeat statement
-
-
-// this is for user ans comparison
-//for char in allTheWords{
-//    if char.contains(){
-//        print(char)
-//    }
-//}
 
