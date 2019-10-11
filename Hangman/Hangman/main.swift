@@ -18,8 +18,8 @@ sleep(3)
 
 var response:String
 repeat{
-print("READY TO PLAY, 'yes' or 'no'?")
-response = readLine() ?? ""
+    print("READY TO PLAY, 'yes' or 'no'?")
+    response = readLine() ?? ""
 } while response != "yes"
 
 print("Great, let's go die...I mean not...die....😈")
@@ -42,9 +42,12 @@ var allTheWords = ["able", "about", "account", "acid", "across", "addition", "ad
 //allTheWords.shuffle()
 //
 //print(allTheWords)
+
 var attemptsLogged = 6
-let randomWord = allTheWords.randomElement() ?? ""
+var randomWord = allTheWords.randomElement() ?? ""
 var wrongGuesses = ""
+var wrongNumbers = Array("1234567890")
+var wrongSpace = " "
 var alphabet = Array("abcdefghijklmnopqrstuvwxyz")
 
 var actualWord = Array(randomWord)
@@ -55,38 +58,56 @@ print(String(maskedWordUnderscores))
 
 var reapeatCondition = true
 
-repeat{
+startloop: repeat{
     print("Incorrect guesses: \(wrongGuesses)")
     let guess = Array(readLine() ?? "")
-    if alphabet.contains(guess[0]) {
-        continue
-    } else{
-        print("Sorry! Only letters!")
-    }
     
+    if guess.count != 1 {
+        print("Only one letter please")
+        continue startloop
+//    }
+//    if guess != alphabet {
+//        print("Only letters please!")
+//        continue startloop
+    }
+    if wrongNumbers.contains(guess[0]){
+        print("Invalid entry! Only letters!")
+        continue startloop
+    }
+    if wrongSpace.contains(guess[0]){
+        print("Enter a letter please!")
+        continue startloop
+    }
     if wrongGuesses.contains(guess[0]){
-        print("Oh no, you already guessed that letter, try again!")
+        print("Oh no, invalid entry, try again!")
+        continue startloop
     } else {
         print("keep going!")
         
-     if actualWord.contains(guess[0]) {
-         for (index, character) in actualWord.enumerated() {
-             if character == guess[0] {
-                 maskedWordUnderscores[index] = character
-         }
-     }
- if maskedWordUnderscores == (actualWord) {
-         print("YAY!") // add text art that's congratulating the player for winning the game! and potentially offer a repeat loop to play new game with new random word
-     
-     reapeatCondition = false
-     }
-      print(String(maskedWordUnderscores))
-         } else {
-         wrongGuesses += String(guess[0])
-         attemptsLogged -= 1
-         print("Sorry, Incorrect! You have \(attemptsLogged) chances left!")
-         if attemptsLogged == 5{
-         print("""
+        if actualWord.contains(guess[0]) {
+            for (index, character) in actualWord.enumerated() {
+                if character == guess[0] {
+                    maskedWordUnderscores[index] = character
+                }
+            }
+            if maskedWordUnderscores == (actualWord) {
+                print("⭐️YAY!⭐️") // add text art that's congratulating the player for winning the game! and potentially offer a repeat loop to play new game with new random word
+                print("Do you want to play again?!")
+                
+                let playAgain = readLine() ?? "yes"
+                if playAgain == "yes" {
+                    continue startloop
+                } else{
+                    reapeatCondition = false
+                }
+            }
+            print(String(maskedWordUnderscores))
+        } else {
+            wrongGuesses += String(guess[0])
+            attemptsLogged -= 1
+            print("Sorry, Incorrect! You have \(attemptsLogged) chances left!")
+            if attemptsLogged == 5{
+                print("""
                  +---+
                    |   |
                    O   |
@@ -95,10 +116,10 @@ repeat{
                        |
                  =========
  """)
-             print(String(maskedWordUnderscores))
-         }
-         if attemptsLogged == 4{
-             print("""
+                print(String(maskedWordUnderscores))
+            }
+            if attemptsLogged == 4{
+                print("""
                   +---+
                    |   |
                    O   |
@@ -107,10 +128,10 @@ repeat{
                        |
                  =========
  """)
-             print(String(maskedWordUnderscores))
-         }
-         if attemptsLogged == 3{
-             print("""
+                print(String(maskedWordUnderscores))
+            }
+            if attemptsLogged == 3{
+                print("""
                      +---+
                        |   |
                        O   |
@@ -119,10 +140,10 @@ repeat{
                            |
                      =========
  """)
-             print(String(maskedWordUnderscores))
-         }
-         if attemptsLogged == 2{
-             print("""
+                print(String(maskedWordUnderscores))
+            }
+            if attemptsLogged == 2{
+                print("""
                       +---+
                        |   |
                        O   |
@@ -130,10 +151,10 @@ repeat{
                            |
                          =========
                  """)
-             print(String(maskedWordUnderscores))
-         }
-         if attemptsLogged == 1{
-             print("""
+                print(String(maskedWordUnderscores))
+            }
+            if attemptsLogged == 1{
+                print("""
                      +---+
                        |   |
                        O   |
@@ -141,10 +162,10 @@ repeat{
                       [    |
                      =========
                  """)
-             print(String(maskedWordUnderscores))
-         }
-         if attemptsLogged == 0{
-             print("""
+                print(String(maskedWordUnderscores))
+            }
+            if attemptsLogged == 0{
+                print("""
                      GAME OVER!!!!!!
                    +---+
                    |   |
@@ -153,12 +174,24 @@ repeat{
                   [ ]  |
                  =========
  """)
-             print("Oh no! The word was: \(String(actualWord)) !")
-             break
-             }
-         }
- }
+                print("Oh no! The word was: \(String(actualWord)) !")
+                
+                print("Do you want to play again?! 'yes' or 'no' ?")
+                let playAgain = readLine() ?? "yes"
+                if playAgain == "yes" {
+                    // TODO: clear all varialbles to their defaults values
+                    attemptsLogged = 6
+                    randomWord = allTheWords.randomElement() ?? ""
+                    maskedWordUnderscores = Array(String(repeating: "_", count: randomWord.count))
+                    wrongGuesses = ""
+                    wrongNumbers = Array("1234567890")
+                    wrongSpace = " "
+                    alphabet = Array("abcdefghijklmnopqrstuvwxyz")
+                    continue startloop
+                } else{
+                    reapeatCondition = false
+                }
+            }
+        }
+    }
 } while reapeatCondition
- print("Do you want to play again?!")
-
- var playAgain = readLine() ?? "yes"
