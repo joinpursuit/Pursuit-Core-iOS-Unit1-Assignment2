@@ -106,7 +106,7 @@ repeat {
     
     
     let userInput = readLine()?.lowercased() ?? "" // user Input readLine
-    print(hiddenWord) // take out when done
+    // print(hiddenWord) // take out when done
 
     if userInput.count > 1 || !alphabet.contains(userInput) || correctGuess.contains(userInput) || lettersGuessed.contains(userInput) { // If user enters more than 1 character or anything else - reject
         print("you have entered a #, more than one character, a letter you have already guessed, or nothing, please try again")
