@@ -44,6 +44,8 @@ var arrayOfMysteryWord = Array(mysteryWord)
 var correctGuess = false
 
 print("Are You Ready?! Guess a Letter!")*/
+
+
 var playerIsPlaying = true
 var playerChoice = ""
 var playerIsNotPlaying = false
@@ -58,9 +60,10 @@ playerChoice = readLine()?.lowercased() ?? ""
 if playerChoice == "yes" {
     playerIsPlaying = true
     print("Awesome!!")
-} else {
-    playerIsNotPlaying = false
+} else if playerChoice == "no" {
+   
     print("See You next Time!")
+    playerIsNotPlaying = false
 }
 
 while playerIsPlaying {
@@ -86,12 +89,7 @@ while playerIsPlaying {
 
     var indices: Set<Int> = []
     var foundWord = ""
-    var playerIsPlaying = true
-
-    var arrayOfMysteryWord = Array(mysteryWord)
-
-    /*var alphabet:Set
-    <Character>=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]*/
+    var playerIsStillPlaying = true
 
     var correctGuess = false
 
@@ -143,6 +141,7 @@ userInput = readLine()?.lowercased() ?? ""
     correctGuess = false
     //print("\(indices.count) is the same as \(mysteryWord.count)")
 }
+    
     while guessMaximum > 0 && (indices.count < mysteryWord.count)
 
     if indices.count == mysteryWord.count  {
@@ -155,12 +154,13 @@ print("If you'd like to play again, type \"Yes\" ")
     
 if userInput == "yes" {
     
-    playerIsPlaying = true
+    playerIsStillPlaying = true
     
-} else {
-    playerIsPlaying = false
+} else if userInput == "no" {
+    playerIsStillPlaying = false
     
     print("See you next time")
+    break
     }
 
 }
