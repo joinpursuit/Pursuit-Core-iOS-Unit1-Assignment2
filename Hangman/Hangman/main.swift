@@ -31,11 +31,11 @@ var repeatCon = true
 var wrongAnswer = 0
 var wrongTry = 6
 
-//============================================================================================================================
+//====================================================================================================================
 
-print("Welcome to Hangman")
+print("☠️ Welcome to Hangman ☠️")
 print()
-print("Type One Letter & Try to solve")
+print("Type One Letter at a Time & Press Enter to solve 🦊")
 print()
 
 func hangmanArt() {
@@ -110,7 +110,7 @@ loop: repeat {
         print(char, terminator: " ")
     }
     print()
-    let userInput = Character(readLine()?.lowercased() ?? "a")
+    let userInput = Character(readLine()?.lowercased() ?? "ERROR")
     if randomWord.contains(userInput) {
         for (index,char) in randomWord.enumerated() {
             if char == userInput {
@@ -132,5 +132,8 @@ loop: repeat {
     print(hiddenWord)
 } while repeatCon
 print("You Lose")
+
+print("Play Again?")
+
 
 
