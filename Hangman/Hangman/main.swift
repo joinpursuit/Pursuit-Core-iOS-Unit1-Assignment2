@@ -7,7 +7,8 @@
 //
 
 import Foundation
-
+var playResponse = ""
+repeat  {
 let allTheWords = ["hellool"]
 
 var enteredLetters : [String] = []
@@ -109,6 +110,7 @@ func updateBodyParts(guess : Bool) -> Int  {
     return updatedBodyParts
 }
 
+
 print(greeting + "\n")
 print(hangmanPicking + "\n")
 print(explanation + "\n")
@@ -176,6 +178,10 @@ else    {
     }
 }
 }  while gameOver == false
+
+print("Play Again? (y for Yes, n for No)")
+    playResponse = readLine() ?? ""
+} while playResponse == "y"
 //print(cpuWord)
 //isLetter
 /*
@@ -187,3 +193,4 @@ testStr.insert("p", at: offset)
 print(testStr)
 */
 //optionals
+
