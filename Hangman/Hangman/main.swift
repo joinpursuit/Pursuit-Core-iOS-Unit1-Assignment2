@@ -8,7 +8,7 @@
 
 import Foundation
 //array of words to choose
-let allTheWords = ["able", "about", "account", "acid", "across", "addition", "adjustment", "advertisement", "after", "again", "against"]
+let allTheWords = [ "addition", "adjustment", "advertisement"]
 let hangManDrawing = [
     """
 """, """
@@ -18,57 +18,79 @@ let hangManDrawing = [
 """, """
 """
 ]
-print("You have a total of six attempts to guess a random word that the computer chooses or else you'll loose the game")
+
 
 //AI chooses word from an array of strings
 
-var gameContinueState = false
-var numOfAttempts = 6
+
+var gameState = true
+var gameRestart = false
+var repeatOnlyForAttempts = true
+print("You have a total of six attempts to guess a random word that the computer chooses or else you'll lose the game")
+
 
 repeat {
-    var validAiWord = String()
-
-    let computerChoiceOfWord = allTheWords.randomElement()
-    if let unwrappedRandomWord = computerChoiceOfWord {
-        validAiWord = unwrappedRandomWord
+    
+    var numOfLosses = 0
+    var numOfAttemptsRemaining = 6
+    let randomAiWord = allTheWords.randomElement()
+    var validAiWordAsString = ""
+    if let validRandomAiWord = randomAiWord {
+        validAiWordAsString = validRandomAiWord
     } else {
         print("There is no random word to choose from")
     }
     
- //   String(repeating: "_", count: validAiWord.count) // used to print "_" for number of characters in the word
-    
-    //places characters of AIs word in a array
-    var charsOfChosenWord:[Character] = []
-    for char in validAiWord {
-        charsOfChosenWord.append(char)
-    }
+    var dashesOfWord:[Character] = Array(repeating: "_", count: validAiWordAsString.count)
+    print(validAiWordAsString)
 
-    //get character of what the user inputs
-    let userInputGuesses = Character(readLine() ?? "Nil value is returned")
-    
-    //array to keep track of what character values the user has entered
-
-    //Check to see if char the user choosed is within an array of characters that corresponds to the word the AI choosed
-    if charsOfChosenWord.contains(userInputGuesses) {
+    repeat {
+        //get character of what the user inputs
+        let userInputGuesses = readLine() ?? ""
         
-    } else if !charsOfChosenWord.contains(userInputGuesses){
-        numOfAttempts -= 1
-    }
+        //places characters of AIs word in a array
 
-    //If user loses the game print the word
-    if numOfAttempts == 0 {
-        print("Computer choose the word: \(validAiWord)")
-        //game state restart
-        print("Would you like to play again?, you can only enter \"yes\" or \"no\" for now")
-        let userInputPlayAgain = readLine() // gets player input if they want to play again or not
-        if let validUserInputPlayAgain = userInputPlayAgain{
-            if validUserInputPlayAgain.lowercased() == "yes" {
-                gameContinueState = true
-            } else if validUserInputPlayAgain.lowercased() == "no" {
-                gameContinueState = false
+        //switch underscores with the correct char at the correct index of dashesOfWord
+        for (index, char) in validAiWordAsString.enumerated() {
+            if validAiWordAsString.contains(userInputGuesses) {
+                if char == Character(userInputGuesses){
+                dashesOfWord[index] = char
+                }
+    //            print(dashesOfWord)
             }
-        } else {
-            print("Valid \"yes\" or \"no\" response not detected")
         }
-    }
-} while (gameContinueState)
+        
+        //Counts the number of attempts you have remaining
+        if !validAiWordAsString.contains(userInputGuesses){
+           numOfAttemptsRemaining -= 1
+           print("You currently have \(numOfAttemptsRemaining) attempts remaining")
+        }
+        print(dashesOfWord)
+
+        print(userInputGuesses)
+
+        //If user loses the game print the word
+        if numOfAttemptsRemaining == 0 {
+            print("Computer choose the word: \(validAiWordAsString)")
+            repeat {
+                print("Would you like to play again?, you can only enter \"yes\" or \"no\" for now")
+                let userInputPlayAgain = readLine() // gets player input if they want to play again or not
+                if let validUserInputPlayAgain = userInputPlayAgain{
+                    if validUserInputPlayAgain.lowercased() == "yes" {
+                          gameState = true
+                    } else if validUserInputPlayAgain.lowercased() == "no" {
+                        repeatOnlyForAttempts = false
+                        gameState = false
+                    }
+                } else {
+                      print("Valid \"yes\" or \"no\" response not detected")
+                }
+            } while gameRestart
+        }
+        
+            
+    } while repeatOnlyForAttempts
+    //repeat this so long as user enters a yes or no response correctly
+  
+    //game state restart
+} while (gameState)
