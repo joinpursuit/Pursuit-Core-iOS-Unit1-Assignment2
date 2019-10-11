@@ -85,6 +85,7 @@ gameLoop: while gameState == true && chances > 0{
     
     if randomWord == String(hiddenWord) {
                 print("you win")
+        print("It took \(6 - chances) wrong guess and \(randomWord.count) correct guesses")
         resetExit()
     }
 }
