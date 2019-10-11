@@ -28,7 +28,7 @@ print("I have a word in mind. You have 6 chances to guess it right. Enter your f
 
 startloop: repeat {
     innerloop: repeat {
-        print("Enter your letter guess 😉 \(String(randomWord))")
+        print("Enter your letter guess 😉")
         print(String(dashes))
         var userInput = readLine() ?? ""
         
