@@ -30,7 +30,7 @@ startloop: repeat {
     innerloop: repeat {
         print("Enter your letter guess 😉 \(String(randomWord))")
         print(String(dashes))
-        var userInput = readLine() ?? "a"
+        var userInput = readLine() ?? ""
         
         
         
@@ -108,6 +108,7 @@ startloop: repeat {
         if wrongLetterCounter == 6 {
             print("You lost better luck next time")
             condition = false
+            print(randomWord)
             
         }
         //      print("condition \(condition)")
@@ -118,7 +119,7 @@ startloop: repeat {
     repeat {
         print("Want to play again? Type Yes or No")
         
-        let answer = readLine()?.lowercased() ?? "J"
+        let answer = readLine()?.lowercased() ?? ""
         
         switch answer {
         case "yes":
