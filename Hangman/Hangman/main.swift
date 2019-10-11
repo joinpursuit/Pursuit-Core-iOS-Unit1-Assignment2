@@ -14,10 +14,9 @@ print("This is a HANGMAN GAME.")
 sleep(2)
 print("The rules are simple: you will see an emplty lines that hiding a word behind them.")
 sleep(3)
-print("You will have six attempts to guess the entire world by chosing a letter per one attempt.")
+print("You will have attempts to guess the entire world by chosing a letter per one attempt (up to 6 unseccessful attampts).")
 sleep(3)
-print("Are you ready to play?")
-print("Yes/No")
+    print("LET'S START!")
 
 var guessMax = 6
 
@@ -87,28 +86,22 @@ GAME OVER!!!
     }
 }
 
-var yourAnswer = ""
+//var yourAnswer = ""
+//
+//repeat {
+//    yourAnswer = readLine()?.lowercased() ?? ""
+//    if yourAnswer == "no" {
+//        break
+//    } else if yourAnswer == "yes" {
+//        print("GREAT!")
+//    } else {
+//        print("""
+//I don't understand your answer. Please type "yes" if you want to play the game, or type "no" if you want exit the game.
+//""")
+//    }
+//} while yourAnswer != "yes"
 
-repeat {
-    yourAnswer = readLine()?.lowercased() ?? ""
-    if yourAnswer == "no" {
-        print("No problem. See you next time. Bye!")
-        break
-    } else if yourAnswer == "yes" {
-        print("GREAT!")
-    } else {
-        print("""
-I don't understand your answer. Please type "yes" if you want to play the game, or type "no" if you want exit the game.
-""")
-    }
-} while yourAnswer != "yes"
 
-if yourAnswer == "yes" {
-    print("""
-LET'S START!
-Your word to guess is:
-""")
-}
 
 let wordsStartingFromA = ["able"]
 
@@ -118,17 +111,31 @@ var randomWord = Array(wordsStartingFromA.randomElement() ?? "animal")
 
 var hiddenWord: [Character] = Array(repeating: "_", count: randomWord.count)
 
-print(hiddenWord)
+//print(hiddenWord)
 
 
 var enteredChar: Character//(readLine()?.lowercased() ?? "") // Here is a fatal error
 
 let alphabets: Set<Character> = Set("abcdefghijklmnopqrstuvwxyz")
 
-startloop: repeat {
+func resetGame() {
+    print("reseting game.....")
+    guessMax = 6
+    randomWord = Array(wordsStartingFromA.randomElement() ?? "animal")
+    hiddenWord = Array(repeating: "_", count: randomWord.count)
+}
+
+repeat {
+    print("Your word to guess is:")
+    print(hiddenWord)
     print("Enter just 1 character from \"a-z\"")
-    print(String(hiddenWord))
-    enteredChar = Character(readLine()?.lowercased() ?? "")
+    print(String(hiddenWord)) // "hi" is not a character app will crash
+    let userInput = readLine()?.lowercased() ?? ""
+    if userInput.count != 1 {
+        print("Please enter ONLY 1 character")
+        continue
+    }
+    enteredChar = Character(userInput)
     var indices: Set<Int> = []
     
     if !randomWord.contains(enteredChar) {
@@ -138,7 +145,18 @@ startloop: repeat {
 The word does not contain such letter.
 You have \(guessMax) attempt left.
 """)
-        continue startloop
+        
+        if guessMax == 0 {
+            print("you lost")
+            print("Do you want to play again?, yes or no")
+            let response = readLine() ?? ""
+            if response == "yes" {
+                // reset all variable to default values
+                resetGame()
+            }
+        }
+        
+        continue
     }
     
     for (index, char) in randomWord.enumerated() {
@@ -153,39 +171,44 @@ You have \(guessMax) attempt left.
         }
         if !hiddenWord.contains("_") {
             print("CONGRATULATIONS!!! You win!")
-            sleep(1)
+            print("The hidden word was \(hiddenWord)")
+            sleep(2)
             print("Do you want to play again?")
             print("Yes or No?")
+        
             let continueGame = readLine()?.lowercased() ?? "no"
             
             if continueGame == "yes" {
-                guessMax = 6
-                randomWord = Array(wordsStartingFromA.randomElement() ?? "animal")
-                hiddenWord = Array(repeating: "_", count: randomWord.count)
-                continue startloop
+                resetGame()
+                continue
             }
         }
     }
+    
     // print(String(hiddenWord))
 } while guessMax >= 1 && randomWord != hiddenWord
 
-print("""
-(Do you want to play again?
-Yes or No?)
-""")
+ print("Goodbye! See you next time!")
 
-yourAnswer = readLine()?.lowercased() ?? ""
+//print("""
+//(Do you want to play again?
+//Yes or No?)
+//""")
+//
+//yourAnswer = readLine()?.lowercased() ?? ""
+//
+//if yourAnswer == "yes" {
+//    continue startloop
+//} else if yourAnswer == "no" {
+//    print("Goodbye!")
+//} else {
+//    print("""
+//I did not understood your answer.
+//Please type \"Yes\" if you want continue the game
+//        OR
+//\"No\" if you want exit the game.
+//""")
+//}
+// 
 
-if yourAnswer == "yes" {
-    continue startloop
-} else if yourAnswer == "no" {
-    print("Goodbye!")
-} else {
-    print("""
-I did not understood your answer.
-Please type \"Yes\" if you want continue the game
-        OR
-\"No\" if you want exit the game.
-""")
-}
 
