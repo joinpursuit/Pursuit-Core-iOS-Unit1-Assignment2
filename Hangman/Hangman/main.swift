@@ -19,8 +19,9 @@ var hiddenWord = ("") // Decleares an empty String.
 
 var arrayWord = [Character]() // Decleares an emty array of Characters.
 
-var tries = 7 // ??
-var indeces = [Int]() // ??
+//var tries = 7 // Number of wrong letters an user can submit.
+
+//var indeces = [Int]() // ??
 
 print(randomWord)
 
@@ -38,7 +39,7 @@ for _ in randomWord {
 
 
 var repeatCondition = true
-var wrongAttempts = 0
+var wrongAttempts = 0 // User starts off fresh
 var wrongTry = 7
 
 
@@ -173,5 +174,5 @@ loop: repeat {
 } while repeatCondition
 
 
-print("Game Over")
+print("Do you want to play again?")
 
