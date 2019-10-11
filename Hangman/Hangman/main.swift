@@ -17,10 +17,10 @@ let allTheWords = [
 // to unfold is in editor
 
     // Instructions
-print("WELCOME tooo Hangman, a game that is much more tedious and stressfull than you middle school spelling bee because one wrong move and someone's gonna end up dead(figruatively of course).")
+print("WELCOME tooo Hangman, a game that is much more tedious and stressfull than your middle school spelling bee because one wrong move and someone's gonna end up dead(figruatively of course).")
 print()
 
-print("Please be mindful that you only have 6 times to miss the letter before you are hanged... Also  we only want letters NOT numbers. ")
+print("Please be mindful that you only have 6 times to miss a letter before you are hanged... Also we only want letters NOT numbers. ")
 
 print()
 
@@ -38,32 +38,87 @@ print(randomWord)
     // is the place holder for the amount of letters in a word
 var placeHolder = "_ "
     // this equates amount of letters in the chosen word to the amount of place holders
-if randomWordCount != placeHolder.count {
-    //This makes the place holder repeat itself to the amount that of word count
-let amountOfPlaceHolder = String(repeating: "_ ", count: randomWordCount)
-    print(amountOfPlaceHolder,terminator:"")
+//if randomWordCount != placeHolder.count {
+//    //This makes the place holder repeat itself to the amount that of word count
+//let amountOfPlaceHolder = String(repeating: "_ ", count: randomWordCount)
+//    print(amountOfPlaceHolder,terminator:"")
+//}
+
+//for loop that add "_" to amountOfPlaceHolder depending on the count of the random word
+// if statement is check something
+var amountOfPlaceHolder = [Character]()
+for _ in 1...randomWordCount { // loops the characters through the word..
+    // starts from 1 to amount of letters
+    amountOfPlaceHolder.append("_")
 }
+
     // This prints the place holders in one line
 
     // Establishes the variable for the amount of guesses the user has.
-var MaxGuesses = 6
-
-print()
+    //amount of lives used
+var numberOfAttempts = 6
 print()
 
 print("please enter in a letter you would like to guess")
 print()
 
-//var word = ""
-//word = randomWord
-//The user enters a letter for the random word
-var userLetter = readLine() ?? ""
-//var promptWord = "?"
+//need to make sure user cannnot enter more than 1 letter or a number??
+
+
+//The user enters a letter for the random word and allows for it to be a upper case letter.
+//if userLetter = Int
 
 // create a repeat while loop that allows for the computer to check if the letter inputed is correct
 
+//var letter = userLetter
+var condition = true // this is only to verify the while which should be either true or false but to simplifiy it you use a variable that holds the place of true or false
+// elements are the places in an ARRAY
+// ARAARYS have both an an element and the index
+
+repeat {
+    
+    print(String(amountOfPlaceHolder))
+    
+    let userLetter = readLine()?.lowercased() ?? "a"
+
+    if randomWord.contains(userLetter){
+        print("Good Job now try again")
+    for (index, char) in randomWord.enumerated() { // enumerated creates the index and the index is the spot in the random word.
+        // automatically changes it to an array
+        // FIRST variable is ALWAYS the number
+        // SECOND variable is ALWAYS the character
+        // only need when you are checking for both the index and the value.
+        //when you do a for loop inside of a string you can only get the characters. because you WANT A CHARACTER
+        if char == Character(userLetter) {
+            // amountOfPlaceHolder.insert(char, at:index )
+           amountOfPlaceHolder[index] = Character(userLetter)
+            // subscripting
+            if randomWord == String(amountOfPlaceHolder){
+                print("Yeah You won!!!")
+                condition = false
+               // break // this needs to be inside of the if else statement
+            }
+        }
+        }
+        }
+     else{
+        numberOfAttempts-=1// only need to enter numberOfAttempts below because -= decrements but also reassigns it the variable to the new number
+            print("You have this many tries left \(numberOfAttempts)")
+        if numberOfAttempts == 0 {// compares
+        condition = false // reassigns the value
+        }
+    }
+}while condition == true // this is only to verify the while which should be either true or false but to simplifiy it you use a variable that holds the place of true or false.
+
+// need to put that this is the amount of lives/ guesses the player has left
 
 
+//var word = ""
+//    for letter in userLetter.enumerated(){
+//        if userLetter == word{
+//
+//        }
+//    }
 
 //for letter in word {
 //    let strLetter = String(letter)
