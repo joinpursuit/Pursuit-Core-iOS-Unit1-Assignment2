@@ -25,8 +25,8 @@ repeat {
 
     print()
 
-    for char in word {
-        print(char, terminator: " ")
+    for _ in word {
+//        print(char, terminator: " ")
         letterArray.append("_")
     }
 
@@ -113,10 +113,10 @@ ____|_______________________________________
     |
     |
 ____|_______________________________________
-
 Oops, You have 5 more attempts!!
 """)
                 print()
+                print("Guessed Letters..... \(letterGuessed)")
             case 2:
 //                sleep(1)
                 print("""
@@ -130,6 +130,7 @@ ____|_______________________________________
 Oops, You have 4 more attempts!!
 """)
                 print()
+                print("Guessed Letters..... \(letterGuessed)")
             case 3:
 //                sleep(1)
                 print("""
@@ -142,6 +143,8 @@ Oops, You have 4 more attempts!!
 ____|_______________________________________
 Oops, You have 3 more attempts!!
 """)
+                print()
+                print("Guessed Letters..... \(letterGuessed)")
             case 4:
 //                sleep(1)
                 print("""
@@ -154,6 +157,8 @@ Oops, You have 3 more attempts!!
 ____|_______________________________________
 Oops, You have 2 more attempts!!
 """)
+                print()
+                print("Guessed Letters..... \(letterGuessed)")
             case 5:
 //                sleep(1)
                 print("""
@@ -166,6 +171,8 @@ Oops, You have 2 more attempts!!
 ____|_______________________________________
 Oops, You have 1 more attempt!!
 """)
+                print()
+                print("Guessed Letters..... \(letterGuessed)")
             case 6:
 //                sleep(1)
                 print("""
@@ -178,7 +185,6 @@ Oops, You have 1 more attempt!!
 ____|_______________________________________
 Oops, You're Dead ☠️😵☠️😵☠️😵☠️!!
 """)
-                print()
                 print("The correct word was \"\(word.uppercased())\"!!!")
                 print()
                 sleep(1)
@@ -197,6 +203,7 @@ Oops, You're Dead ☠️😵☠️😵☠️😵☠️!!
         } else if letterGuessed.contains(guess) {
             print("You've already tried that letter, please try another letter")
             print()
+            print("Guessed Letters..... \(letterGuessed)")
         }
     }
 } while isPlaying == true
