@@ -121,8 +121,6 @@ if let randomWords = hangmanWords.randomElement()?.lowercased() {
     chosenWord = randomWords
 }
 
-print(chosenWord)
-
 var arrayDashes = [Character]()
 
 for _ in chosenWord {
@@ -171,6 +169,17 @@ validloop: repeat {
                     } else {
                 if String(arrayDashes) == chosenWord {
                     print("You won. Good job!")
+                    print()
+                    print("Would you like to try again? Yes or No?")
+                    let userRestart = readLine()?.lowercased()
+                    if userRestart == "yes" {
+                        restartGame = true
+                        restartHangman()
+                    } else {
+                        print()
+                        print("Have a nice day.")
+                        condition = false
+                    }
                 }
             }
                 }
