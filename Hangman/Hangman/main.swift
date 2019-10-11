@@ -52,33 +52,35 @@ gameLoop: while gameState == true && chances > 0{
                 indices.insert(index)
         
             }
-            
+
         }  else {
             print("Enter a letter")
             continue gameLoop
         }
-     
     }
     
     
-    if !randomWord.contains(enteredChar) {
+    if !randomWord.contains(enteredChar) && !emptyArr.contains(Character(enteredChar)) {
         chances -= 1
     }
-    
     
     for (index, _) in hiddenWord.enumerated() {
              if indices.contains(index) {
                  hiddenWord[index] = Character(enteredChar)
-                
              }
-   
     }
+    
+    if !emptyArr.contains(Character(enteredChar)) {
+        emptyArr.append(Character(enteredChar))
+    }
+       
+    
+    print("you used \(emptyArr.description)")
          print(String(hiddenWord.description))
      
     if chances == 0 {
         print("you lost")
         resetExit()
-       
     }
     
     if randomWord == String(hiddenWord) {
