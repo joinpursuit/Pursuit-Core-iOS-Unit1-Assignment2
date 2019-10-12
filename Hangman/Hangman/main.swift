@@ -94,7 +94,7 @@ func resetGame() -> () {
 
 print("Give it a shot, guess letter")
 print()
-print("Cheat: \(randomWord)") // dont forget to take out
+// print("Cheat: \(randomWord)") // dont forget to take out
 print()
 print(hangManEmpty)
 
@@ -104,7 +104,7 @@ print(hangManEmpty)
 
 repeat {
     
-    
+    print("Enter your character here:", terminator: "")
     let userInput = readLine()?.lowercased() ?? "" // user Input readLine
     // print(hiddenWord) // take out when done
 
@@ -113,11 +113,13 @@ repeat {
         continue
     }
     if randomWord.contains(userInput) { // takes user input, if correct appends index key to indices var
+        print()
         print("You made a correct guess!")
         for (index, char) in randomWord.enumerated() {
             if userInput.contains(char) {
                 indices.append(index)
                 correctGuess.append(userInput)
+                
             }
         }
         for (index, _) in underscoresFromRandomWord.enumerated() { // replaces respective index value (provided indices) with userinput
@@ -126,19 +128,20 @@ repeat {
             }
         }
         indices.removeAll()
-        print(String(underscoresFromRandomWord)) // Prints string from the array of characters
+        print("Current progress: \(String(underscoresFromRandomWord))") // Prints string from the array of characters
     }
     if !randomWord.contains(userInput) {
         print("This word does not contain that character, try again")
         guessCounter += 1
-        lettersGuessed.append(userInput)
+        lettersGuessed.append(userInput + ", ")
     }
     print()
     // print("you have already guessed that letter: \(lettersGuessed)")
     if guessCounter > maxGuesses {
         //repeatCondition = false
+        print(hangManFinal)
         print("You stink loser!")
-        //sleep(1)
+        sleep(1)
         print("Would you like to play again?")
         let losePrompt = readLine()?.lowercased() ?? "no"
         if losePrompt == "yes" {
@@ -149,25 +152,28 @@ repeat {
         }
     }
     if guessCounter == 0 {
+        print("\n")
         print(hangManEmpty)
     }
     if guessCounter == 1 {
+        print()
         print(hangMan1)
     }
     if guessCounter == 2 {
+        print()
         print(hangMan2)
     }
     if guessCounter == 3 {
+        print()
         print(hangMan3)
     }
     if guessCounter == 4 {
+        print()
         print(hangMan4)
     }
     if guessCounter == 5 {
+        print()
         print(hangMan5)
-    }
-    if guessCounter > 5 {
-        print(hangManFinal)
     }
     print("Incorrect letters guessed: \(lettersGuessed)")
 } while repeatCondition
