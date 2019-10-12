@@ -124,7 +124,7 @@ print("Choose one letter and hit enter")
 hangman: repeat {
 
     print(String(underScore))
-    print(chosenWord)
+//    print(chosenWord)
     
     let letterInput = readLine()?.lowercased() ?? "0"
     
