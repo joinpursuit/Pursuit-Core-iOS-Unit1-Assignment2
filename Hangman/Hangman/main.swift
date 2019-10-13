@@ -24,6 +24,9 @@ let hangManEmpty = """
 |
 |
 =========
+
+6 guesses remaining
+
 """
 
 let hangMan1 = """
@@ -33,6 +36,9 @@ let hangMan1 = """
 |
 |
 =========
+
+5 guesses remaining
+
 """
 
 let hangMan2 = """
@@ -42,6 +48,9 @@ let hangMan2 = """
 |     |
 |
 =========
+
+4 guesses remaining
+
 """
 let hangMan3 = """
 |------
@@ -50,6 +59,9 @@ let hangMan3 = """
 |    /|
 |
 =========
+
+3 guesses remaining
+
 """
 let hangMan4 = """
 |------
@@ -58,6 +70,9 @@ let hangMan4 = """
 |    /|\\
 |
 =========
+
+2 guesses remaining
+
 """
 let hangMan5 = """
 |------
@@ -66,6 +81,9 @@ let hangMan5 = """
 |    /|\\
 |    /
 =========
+
+1
+
 """
 
 
@@ -104,22 +122,21 @@ print(hangManEmpty)
 
 repeat {
     
-    print("Enter your character here:", terminator: "")
+    print("Enter your character here:", terminator: " ")
     let userInput = readLine()?.lowercased() ?? "" // user Input readLine
     // print(hiddenWord) // take out when done
 
     if userInput.count > 1 || !alphabet.contains(userInput) || correctGuess.contains(userInput) || lettersGuessed.contains(userInput) { // If user enters more than 1 character or anything else - reject
-        print("you have entered a #, more than one character, a letter you have already guessed, or nothing, please try again")
+        print("please enter a single letter to try again")
+        print()
         continue
     }
     if randomWord.contains(userInput) { // takes user input, if correct appends index key to indices var
         print()
-        print("You made a correct guess!")
         for (index, char) in randomWord.enumerated() {
             if userInput.contains(char) {
                 indices.append(index)
                 correctGuess.append(userInput)
-                
             }
         }
         for (index, _) in underscoresFromRandomWord.enumerated() { // replaces respective index value (provided indices) with userinput
@@ -128,17 +145,15 @@ repeat {
             }
         }
         indices.removeAll()
-        print("Current progress: \(String(underscoresFromRandomWord))") // Prints string from the array of characters
     }
     if !randomWord.contains(userInput) {
-        print("This word does not contain that character, try again")
+      //  print("This word does not contain that character, try again")
         guessCounter += 1
         lettersGuessed.append(userInput + ", ")
     }
     print()
-    // print("you have already guessed that letter: \(lettersGuessed)")
     if guessCounter > maxGuesses {
-        //repeatCondition = false
+
         print(hangManFinal)
         print("You stink loser!")
         sleep(1)
@@ -174,6 +189,15 @@ repeat {
     if guessCounter == 5 {
         print()
         print(hangMan5)
+    } // Can I switch this out with a switch statement? ;)
+    if randomWord.contains(userInput) {
+        print("You made a correct guess!")
+    } else {
+        print("Incorrect guess, try again")
     }
+    print()
     print("Incorrect letters guessed: \(lettersGuessed)")
+    print()
+    print("Current progress: \(String(underscoresFromRandomWord))")
+    print()
 } while repeatCondition
