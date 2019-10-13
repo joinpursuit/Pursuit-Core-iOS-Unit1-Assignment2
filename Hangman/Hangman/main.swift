@@ -66,10 +66,10 @@ let chance6 = """
 
 print("Welcome to the game of hangman (countries edition). This game will test the knowledge you have for the countries around the world 🌍.")
 print()
-//sleep(1)
+sleep(1)
 print("You will have a total of 6 chances to guess the word that was randomly selected inorder to beat the game. Once you have used your 6th chance the game is end. So guess your words wisely.")
 print()
-//sleep(1)
+sleep(1)
 print("""
 
 888               888                   888888b.                     🌍🌍
@@ -85,7 +85,7 @@ print("""
                                                              "Y88P"
 """)
 print()
-//sleep(1)
+sleep(1)
 print("If you are ready to take on the challenge type \"ready\" to begin the game.")
 //sleep(1)
 
@@ -109,7 +109,7 @@ print()
 
 print("Thank you for starting the game.")
 
-//sleep(1)
+sleep(1)
 
 var userGuessLetter = ""
 var userTries = 0
