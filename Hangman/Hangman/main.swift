@@ -11,9 +11,9 @@ import Foundation
 let hangManFinal = """
 |------
 |/    |
-|     0
+| \u{205F}\u{2009} 😵
 |    /|\\
-|    /\\
+|    /\u{203E}\\
 =========
 """
 
@@ -82,7 +82,7 @@ let hangMan5 = """
 |    /
 =========
 
-1
+1 guess remaining
 
 """
 
@@ -100,7 +100,7 @@ var repeatCondition = true // Set the while loop
 var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 var indices = [Int]()
 var correctGuess = ""
-var winWord = String(underscoresFromRandomWord)
+var winWord = ""
 func resetGame() -> () {
     randomWord = words.randomElement()?.lowercased() ?? "ERROR"
     underscoresFromRandomWord = Array(String(repeating: "_", count: randomWord.count))
@@ -112,7 +112,7 @@ func resetGame() -> () {
 
 print("Give it a shot, guess letter")
 print()
-// print("Cheat: \(randomWord)") // dont forget to take out
+print("Cheat: \(randomWord)") // dont forget to take out
 print()
 print(hangManEmpty)
 
@@ -121,41 +121,9 @@ print(hangManEmpty)
 
 
 repeat {
-    
-    print("Enter your character here:", terminator: " ")
-    let userInput = readLine()?.lowercased() ?? "" // user Input readLine
-    // print(hiddenWord) // take out when done
-
-    if userInput.count > 1 || !alphabet.contains(userInput) || correctGuess.contains(userInput) || lettersGuessed.contains(userInput) { // If user enters more than 1 character or anything else - reject
-        print("please enter a single letter to try again")
-        print()
-        continue
-    }
-    if randomWord.contains(userInput) { // takes user input, if correct appends index key to indices var
-        print()
-        for (index, char) in randomWord.enumerated() {
-            if userInput.contains(char) {
-                indices.append(index)
-                correctGuess.append(userInput)
-            }
-        }
-        for (index, _) in underscoresFromRandomWord.enumerated() { // replaces respective index value (provided indices) with userinput
-            if indices.contains(index) {
-                underscoresFromRandomWord[index] = Character(userInput)
-            }
-        }
-        indices.removeAll()
-    }
-    if !randomWord.contains(userInput) {
-      //  print("This word does not contain that character, try again")
-        guessCounter += 1
-        lettersGuessed.append(userInput + ", ")
-    }
-    print()
-    if guessCounter > maxGuesses {
-
-        print(hangManFinal)
-        print("You stink loser!")
+    print(hiddenWord)
+    if randomWord == (String(underscoresFromRandomWord)) {
+        print("You have managed to guess the word correctly and save the man from hanging!")
         sleep(1)
         print("Would you like to play again?")
         let losePrompt = readLine()?.lowercased() ?? "no"
@@ -166,30 +134,107 @@ repeat {
             break
         }
     }
-    if guessCounter == 0 {
-        print("\n")
-        print(hangManEmpty)
+    print("Enter your character here:", terminator: " ")
+    let userInput = readLine()?.lowercased() ?? "" // user Input readLine
+    
+    if userInput.count > 1 || !alphabet.contains(userInput) || correctGuess.contains(userInput) || lettersGuessed.contains(userInput) { // If user enters more than 1 character or anything else - reject
+        sleep(1)
+        print("please try again")
+        print()
+        continue
     }
-    if guessCounter == 1 {
+    if randomWord.contains(userInput) { // takes user input, if correct appends index key to indices var
+        print()
+        for (index, char) in randomWord.enumerated() {
+            if userInput.contains(char) {
+                indices.append(index)
+                correctGuess.append(userInput)
+                winWord.append(userInput)
+            }
+        }
+        for (index, _) in underscoresFromRandomWord.enumerated() { // replaces respective index value (provided indices) with userinput
+            if indices.contains(index) {
+                underscoresFromRandomWord[index] = Character(userInput)
+            }
+        }
+        indices.removeAll()
+    }
+    if !randomWord.contains(userInput) {
+        //  print("This word does not contain that character, try again")
+        guessCounter += 1
+        lettersGuessed.append(userInput + ", ")
+    }
+    print()
+    if guessCounter > maxGuesses {
+        
+        print(hangManFinal)
+        print("You lost! The man has been hung")
+        sleep(1)
+        print("Would you like to play again?")
+        let losePrompt = readLine()?.lowercased() ?? "no"
+        if losePrompt == "yes" {
+            resetGame()
+        } else {
+            print("Goodbye!")
+            break
+        }
+    }
+    switch guessCounter {
+    case 0:
+        print()
+        print(hangManEmpty)
+    case 1:
         print()
         print(hangMan1)
-    }
-    if guessCounter == 2 {
+    case 2:
         print()
         print(hangMan2)
-    }
-    if guessCounter == 3 {
+    case 3:
         print()
         print(hangMan3)
-    }
-    if guessCounter == 4 {
+    case 4:
         print()
         print(hangMan4)
-    }
-    if guessCounter == 5 {
+    case 5:
         print()
         print(hangMan5)
-    } // Can I switch this out with a switch statement? ;)
+    case 6:
+        print()
+        print(hangManFinal)
+    default:
+        print()
+    }
+    
+    
+    
+    
+    
+    
+    
+    //    if guessCounter == 0 {
+    //        print("\n")
+    //        print(hangManEmpty)
+    //    }
+    //    if guessCounter == 1 {
+    //        print()
+    //        print(hangMan1)
+    //    }
+    //    if guessCounter == 2 {
+    //        print()
+    //        print(hangMan2)
+    //    }
+    //    if guessCounter == 3 {
+    //        print()
+    //        print(hangMan3)
+    //    }
+    //    if guessCounter == 4 {
+    //        print()
+    //        print(hangMan4)
+    //    }
+    //    if guessCounter == 5 {
+    //        print()
+    //        print(hangMan5)
+    //    } // Can I switch this out with a switch statement? ;)
     if randomWord.contains(userInput) {
         print("You made a correct guess!")
     } else {
@@ -200,4 +245,5 @@ repeat {
     print()
     print("Current progress: \(String(underscoresFromRandomWord))")
     print()
+
 } while repeatCondition
