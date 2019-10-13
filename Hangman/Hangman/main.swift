@@ -117,7 +117,6 @@ var ascii6 = """
   __|___
 """
 
-
 print(ascii1)
 print("Choose one letter and hit enter")
 
@@ -141,14 +140,14 @@ hangman: repeat {
        case 3:
            print(ascii4)
        case 2:
-           print(ascii5)
-       case 1:
            print(ascii6)
+       case 1:
+           print(ascii5)
 //       case 0:
 //           print(asciiLost)
 //           print("Nice try, you lost. the word was \(chosenWord)  Please play again")
        default:
-           print(ascii1)
+           print(ascii2)
     }
     if !chosenWord.contains(letterInput) && triesLeft != 0 {
         triesLeft -= 1
