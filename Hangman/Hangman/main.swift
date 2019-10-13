@@ -99,6 +99,7 @@ var lettersGuessed = "" // Starts a blank string(Should this be an array?) to ke
 var repeatCondition = true // Set the while loop
 var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 var indices = [Int]()
+var totalGuesses = (0)
 var correctGuess = ""
 var winWord = ""
 func resetGame() -> () {
@@ -117,23 +118,25 @@ Your goal, is to save the man from being hung.
 
 You do this, by correctly guessing the word the computer is thinking...
 
-One letter at a time. Are you up to the challenge?
+One letter at a time, you have 6 guesses. Are you up to the challenge?
 
 """)
 print()
 //print("Cheat: \(randomWord)") - Cheat option
 print()
-sleep(3)
 print(hangManEmpty)
-
+print()
+print(hiddenWord)
 
 //=============================================================================================================
 // Hangman loop
 //=============================================================================================================
 repeat {
-    print(hiddenWord)
+// Win condition
     if randomWord == (String(underscoresFromRandomWord)) {
         print("You have managed to guess the word correctly and save the man from hanging!")
+        print()
+        print("It took you \(totalGuesses) guesses to complete")
         sleep(1)
         print("Would you like to play again?")
         let losePrompt = readLine()?.lowercased() ?? "no"
@@ -174,12 +177,17 @@ repeat {
         //  print("This word does not contain that character, try again")
         guessCounter += 1
         lettersGuessed.append(userInput + ", ")
+        totalGuesses += 1
     }
     print()
     if guessCounter > maxGuesses {
         print(hangManFinal)
+        print()
         print("You lost! The man has been hung")
-        sleep(1)
+        print()
+        print("It took you \(totalGuesses) guesses to complete")
+        print("The word was \"\(randomWord)\"")
+        print()
         print("Would you like to play again?")
         let losePrompt = readLine()?.lowercased() ?? "no"
         if losePrompt == "yes" {
@@ -191,31 +199,24 @@ repeat {
     }
     switch guessCounter {
     case 0:
-        sleep(1)
         print()
         print(hangManEmpty)
     case 1:
-        sleep(1)
         print()
         print(hangMan1)
     case 2:
-        sleep(1)
         print()
         print(hangMan2)
     case 3:
-        sleep(1)
         print()
         print(hangMan3)
     case 4:
-        sleep(1)
         print()
         print(hangMan4)
     case 5:
-        sleep(1)
         print()
         print(hangMan5)
     case 6:
-        sleep(1)
         print()
         print(hangManFinal)
     default:
