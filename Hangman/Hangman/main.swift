@@ -110,16 +110,26 @@ func resetGame() -> () {
     repeatCondition = true
 }
 
-print("Give it a shot, guess letter")
+print("""
+Welcome to hangman!
+
+Your goal, is to save the man from being hung.
+
+You do this, by correctly guessing the word the computer is thinking...
+
+One letter at a time. Are you up to the challenge?
+
+""")
 print()
-print("Cheat: \(randomWord)") // dont forget to take out
+//print("Cheat: \(randomWord)") - Cheat option
 print()
+sleep(3)
 print(hangManEmpty)
 
 
-
-
-
+//=============================================================================================================
+// Hangman loop
+//=============================================================================================================
 repeat {
     print(hiddenWord)
     if randomWord == (String(underscoresFromRandomWord)) {
@@ -134,6 +144,7 @@ repeat {
             break
         }
     }
+    print()
     print("Enter your character here:", terminator: " ")
     let userInput = readLine()?.lowercased() ?? "" // user Input readLine
     
@@ -166,7 +177,6 @@ repeat {
     }
     print()
     if guessCounter > maxGuesses {
-        
         print(hangManFinal)
         print("You lost! The man has been hung")
         sleep(1)
@@ -181,63 +191,41 @@ repeat {
     }
     switch guessCounter {
     case 0:
+        sleep(1)
         print()
         print(hangManEmpty)
     case 1:
+        sleep(1)
         print()
         print(hangMan1)
     case 2:
+        sleep(1)
         print()
         print(hangMan2)
     case 3:
+        sleep(1)
         print()
         print(hangMan3)
     case 4:
+        sleep(1)
         print()
         print(hangMan4)
     case 5:
+        sleep(1)
         print()
         print(hangMan5)
     case 6:
+        sleep(1)
         print()
         print(hangManFinal)
     default:
         print()
     }
-    
-    
-    
-    
-    
-    
-    
-    //    if guessCounter == 0 {
-    //        print("\n")
-    //        print(hangManEmpty)
-    //    }
-    //    if guessCounter == 1 {
-    //        print()
-    //        print(hangMan1)
-    //    }
-    //    if guessCounter == 2 {
-    //        print()
-    //        print(hangMan2)
-    //    }
-    //    if guessCounter == 3 {
-    //        print()
-    //        print(hangMan3)
-    //    }
-    //    if guessCounter == 4 {
-    //        print()
-    //        print(hangMan4)
-    //    }
-    //    if guessCounter == 5 {
-    //        print()
-    //        print(hangMan5)
-    //    } // Can I switch this out with a switch statement? ;)
     if randomWord.contains(userInput) {
+        print()
         print("You made a correct guess!")
     } else {
+        print()
         print("Incorrect guess, try again")
     }
     print()
