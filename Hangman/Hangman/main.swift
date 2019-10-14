@@ -39,7 +39,7 @@ let hangManDrawing = ["""
                       """
 -----|
 |    O
-|    |\
+|    |\\
 |
 |
 |
@@ -48,7 +48,7 @@ let hangManDrawing = ["""
                       """
 -----|
 |    O
-|   /|\
+|   /|\\
 |
 |
 |
@@ -57,8 +57,8 @@ let hangManDrawing = ["""
                       """
 -----|
 |    O
-|   /|\
-|     \
+|   /|\\
+|     \\
 |
 |
 ---------
@@ -66,20 +66,20 @@ let hangManDrawing = ["""
                       """
 -----|
 |    O
-|   /|\
-|   / \
+|   /|\\
+|   / \\
 |
 |
 ---------
 """
 ]
 
-var gameState = true
-var gameRestart = false
+//var gameState = true
+//var gameRestart = false
 var repeatOnlyForAttempts = true
 
 
-gameStart: repeat {
+func Hangman() {
 
     var numOfLosses = 0
     var numOfAttemptsRemaining = 6
@@ -92,12 +92,34 @@ gameStart: repeat {
         print("There is no random word to choose from")
     }
     
-    print("You have a total of six attempts to guess a random word that the computer chooses or else you'll lose the game")
+    print("You have a total of \(numOfAttemptsRemaining) attempts to guess a random word that the computer chooses or else you'll lose the game")
     print(hangManDrawing[numOfLosses])
 
     var dashesOfWord:[Character] = Array(repeating: "_", count: validAiWordAsString.count)
-    print(validAiWordAsString)
+//    print(validAiWordAsString)
     print(dashesOfWord)
+    func gameRestart() {
+        while numOfAttemptsRemaining == 0 || validAiWordAsString == String(dashesOfWord) {
+            print("GAME OVER")
+            print("Would you like to play again?, you can only enter \"yes\" or \"no\" for now")
+            let userInputPlayAgain = readLine() // gets player input if they want to play again or not
+            if let validUserInputPlayAgain = userInputPlayAgain{
+                if validUserInputPlayAgain.lowercased() == "yes" {
+                    //gameState = true
+                    Hangman()
+                } else if validUserInputPlayAgain.lowercased() == "no" {
+                    repeatOnlyForAttempts = false
+                    //gameState = false
+                    break
+                } else {
+                    print("Valid \"yes\" or \"no\" response not detected")
+                }
+            } else {
+                print("Nil response not detected")
+            }
+        }
+    }
+    
     repeat {
         //get character of what the user inputs
         let userInputGuesses = readLine() ?? ""
@@ -116,6 +138,7 @@ gameStart: repeat {
             if validAiWordAsString == String(dashesOfWord) {
                 print(hangManDrawing[numOfLosses])
                 print("YOU WON with \(numOfAttemptsRemaining) attempts remaining")
+                gameRestart()
             }
         }
         
@@ -126,37 +149,20 @@ gameStart: repeat {
             numOfLosses += 1
             print(hangManDrawing[numOfLosses])
             print("You currently have \(numOfAttemptsRemaining) attempts remaining")
-            
+            print(dashesOfWord)
             if numOfAttemptsRemaining == 0 {
                 print("YOU LOST")
                 print("The word the computer choose was: \(validAiWordAsString)")
+                gameRestart()
             }
         }
- //       print(dashesOfWord)
 
-        print(userInputGuesses)
+//        print(userInputGuesses)
 
         //If user loses the game print the word
             //repeat this so long as user enters a yes or no response correctly
-        while numOfAttemptsRemaining == 0 || validAiWordAsString == String(dashesOfWord) {
-            print("GAME OVER")
-            print("Would you like to play again?, you can only enter \"yes\" or \"no\" for now")
-            let userInputPlayAgain = readLine() // gets player input if they want to play again or not
-            if let validUserInputPlayAgain = userInputPlayAgain{
-                if validUserInputPlayAgain.lowercased() == "yes" {
-                    gameState = true
-                    continue gameStart
-                } else if validUserInputPlayAgain.lowercased() == "no" {
-                    repeatOnlyForAttempts = false
-                    gameState = false
-                    break
-                } else {
-                    print("Valid \"yes\" or \"no\" response not detected")
-                }
-            } else {
-                  print("Nil response not detected")
-            }
-        }
+        
     } while repeatOnlyForAttempts
     //game state restart
-} while (gameState)
+}
+Hangman()
