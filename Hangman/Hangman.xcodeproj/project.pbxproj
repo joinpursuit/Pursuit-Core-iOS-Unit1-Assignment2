@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		572DB53E21753EB00008EF31 /* Hangman */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Hangman; sourceTree = BUILT_PRODUCTS_DIR; };
 		572DB54121753EB00008EF31 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		6999E87422DA870C009CE490 /* Friday.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Friday.mp3; path = ../../../../../Downloads/Friday.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				572DB54121753EB00008EF31 /* main.swift */,
+				6999E87422DA870C009CE490 /* Friday.mp3 */,
 			);
 			path = Hangman;
 			sourceTree = "<group>";
