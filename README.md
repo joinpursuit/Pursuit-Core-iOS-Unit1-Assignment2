@@ -14,8 +14,8 @@ For this assignment, you will build [hangman](http://www.justhangman.com/)
 ## Requirements 
 
 1. The user must be able to play against the computer
-1. The word that the computer chooses must be random. There is a large array of words below.
-1. The user must have a limited number of guesses
+<!--1. The word that the computer chooses must be random. There is a large array of words below.-->
+<!--1. The user must have a limited number of guesses-->
 1. After each guess, the computer should print out the current state of the word you are guessing.  (ex. A _ _ L E, for apple)
 1. After each guess the computer should print out how many guesses you have remaining.  For full credit, make it actually print out a picture somewhat similar to the link above.
 1. The computer should tell the user if she wins, show her how many guesses it took and end the current game
